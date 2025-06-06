@@ -17,6 +17,14 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+
+            // Extra fields for your Grabbit project:
+            $table->string('location')->nullable(); // User location
+            $table->text('profile_description')->nullable(); // User bio
+            $table->string('profile_image')->nullable(); // Path to profile image
+            $table->float('average_rating')->default(0); // User average rating
+            $table->enum('role', ['user', 'admin'])->default('user'); // User role
+
             $table->rememberToken();
             $table->timestamps();
         });
