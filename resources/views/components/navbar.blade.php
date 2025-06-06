@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
   <div class="container">
-    <a class="navbar-brand fw-bold" href="#">Grabbit</a>
+    <a class="navbar-brand fw-bold" href="{{route('home')}}">Grabbit</a>
 
     <form class="d-flex flex-grow-1 mx-4" role="search">
       <input
