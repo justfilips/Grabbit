@@ -36,7 +36,7 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return redirect()->route('listing.index');
+        return redirect()->route('home');
     }
 
     public function login(Request $request)
@@ -50,7 +50,7 @@ class AuthController extends Controller
 
             $request->session()->regenerate();
 
-            return redirect()->intended(route('listing.index'));
+            return redirect()->intended(route('home'));
         }
 
         return back()->withErrors([
