@@ -14,12 +14,26 @@
     </form>
 
     <ul class="navbar-nav mb-2 mb-lg-0">
+    @guest
       <li class="nav-item">
         <a class="nav-link" href="{{route('login.form')}}">Login</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="{{route('register.form')}}">Register</a>
       </li>
+      @endguest
+      @auth
+      <li class="nav-item">
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <button type="submit" class="nav-link btn btn-link" style="display:inline; padding:0; border:none; background:none;">
+                Logout
+            </button>
+        </form>
+      </li>
+      @endauth
     </ul>
+    
+
   </div>
 </nav>
