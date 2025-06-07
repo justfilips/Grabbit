@@ -28,6 +28,27 @@ class User extends Authenticatable
         'role',
     ];
 
+    public function items()
+    {
+        return $this->hasMany(Item::class);
+    }
+
+    public function reviewsWritten()
+    {
+        return $this->hasMany(Review::class, 'reviewer_id');
+    }
+
+    public function reviewsReceived()
+    {
+        return $this->hasMany(Review::class, 'reviewed_id');
+    }
+
+    public function reportedItems()
+    {
+        return $this->hasMany(ReportedItem::class);
+    }
+
+
     /**
      * The attributes that should be hidden for serialization.
      *

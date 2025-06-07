@@ -20,8 +20,9 @@ class ReportedItem extends Model
         return $this->belongsTo(Item::class);
     }
 
-    public function reporter()
+    public function user()
     {
-        return $this->belongsTo(User::class, 'reporter_id');
+        return $this->belongsTo(User::class);
     }
+
 }

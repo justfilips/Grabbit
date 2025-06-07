@@ -16,4 +16,29 @@ class Item extends Model
         'image_path',
         'status',//'pending', 'approved', 'sold'
     ];
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function images()
+    {
+        return $this->hasMany(ItemImage::class);
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+
+    public function reportedItems()
+    {
+        return $this->hasMany(ReportedItem::class);
+    }
+
 }
