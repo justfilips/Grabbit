@@ -14,8 +14,9 @@ class Item extends Model
         'price',
         'location',
         'image_path',
-        'status',//'pending', 'approved', 'sold'
+        'status', //'pending', 'approved', 'sold'
     ];
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -41,4 +42,8 @@ class Item extends Model
         return $this->hasMany(ReportedItem::class);
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }
