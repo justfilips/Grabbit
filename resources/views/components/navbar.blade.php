@@ -23,14 +23,34 @@
       </li>
       @endguest
       @auth
-      <li class="nav-item">
-        <form method="POST" action="{{ route('logout') }}">
-            @csrf
-            <button type="submit" class="nav-link btn btn-link" style="display:inline; padding:0; border:none; background:none;">
-                Logout
-            </button>
-        </form>
-      </li>
+      <li class="nav-item dropdown">
+        <a 
+          class="nav-link dropdown-toggle d-flex align-items-center" 
+          href="#" 
+          id="navbarDropdown" 
+          role="button" 
+          data-bs-toggle="dropdown" 
+          aria-expanded="false">
+            <!-- Profile Image Circle -->
+            <img 
+              src="{{ Auth::user()->profile_image ? asset(Auth::user()->profile_image) : 'https://i.pinimg.com/474x/47/ba/71/47ba71f457434319819ac4a7cbd9988e.jpg' }}" 
+              alt="Profile" 
+              class="rounded-circle" 
+              width="40" height="40"
+            >
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+            <li>
+                <a class="dropdown-item" href="{{ route('profile') }}">Profile</a>
+            </li>
+            <li>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="dropdown-item">Logout</button>
+                </form>
+            </li>
+        </ul>
+    </li>
       @endauth
     </ul>
     

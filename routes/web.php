@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     return view('home');
@@ -21,3 +22,5 @@ Route::post('/register', [AuthController::class, 'register'])->name('register');
 
 // Logout
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::get('/profile', [UserController::class, 'profile'])->name('profile')->middleware('auth');
