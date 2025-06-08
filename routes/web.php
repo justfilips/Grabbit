@@ -27,3 +27,6 @@ Route::get('/register', [AuthController::class, 'showRegister'])->name('register
 
 // Handle register submit
 Route::post('/register', [AuthController::class, 'register'])->name('register');
+
+Route::get('/profile/{user}', [UserController::class, 'showProfile'])->name('profile.show');
+

@@ -5,13 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class UserController extends Controller
 {
-    public function showProfile()
-    {
-        return view('profile.profile');
+    public function showProfile(User $user)
+    {   
+        return view('profile.profile', compact('user'));
     }
+
 
     public function edit()
     {

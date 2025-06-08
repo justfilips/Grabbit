@@ -19,7 +19,7 @@ class ItemController extends Controller
     {
         $categories = Category::pluck('name');
 
-        $query = Item::with('images');
+        $query = Item::with(['images', 'user']);
 
         if ($request->filled('search')) {
             $query->where('title', 'like', '%' . $request->search . '%');

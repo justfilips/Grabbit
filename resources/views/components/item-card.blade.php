@@ -10,6 +10,18 @@
         <p class="card-text text-muted">{{ Str::limit($item->description, 80) }}</p>
         <p class="fw-bold text-primary">{{ $item->price }} €</p>
         <p class="text-muted"><small>{{ $item->location }}</small></p>
-        <a href="#" class="btn btn-outline-primary btn-sm mt-auto">Contact the seller</a>
+
+        {{-- Seller info --}}
+        @if($item->user)
+            <p class="mb-2">
+                <small>
+                    Sold by: 
+                    <a href="{{ route('profile.show', $item->user->id) }}">
+                        {{ $item->user->name }}
+                    </a>
+                </small>
+            </p>
+        @endif
+
     </div>
 </div>
