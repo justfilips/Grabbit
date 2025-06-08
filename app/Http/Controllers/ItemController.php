@@ -26,9 +26,12 @@ class ItemController extends Controller
         }
 
         if ($request->filled('category')) {
-            $query->where('category', $request->category);
+        // Atrodam atbilstošo kategorijas ID pēc nosaukuma
+        $category = Category::where('name', $request->category)->first();
+        if ($category) {
+            $query->where('category_id', $category->id);
         }
-
+    }
         if ($request->filled('price_min')) {
             $query->where('price', '>=', $request->price_min);
         }
@@ -37,7 +40,7 @@ class ItemController extends Controller
             $query->where('price', '<=', $request->price_max);
         }
         
-        $items = Item::latest()->get(); // paņem visus ierakstus no datubāzes
+        $items = $query->latest()->get(); // paņem filtrētos ierakstus no datubāzes
         return view('home', compact('items', 'categories')); // atgriež skatu un padod $items uz Blade failu
     }
 

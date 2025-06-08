@@ -7,10 +7,10 @@
                 <form action="{{ route('home') }}" method="GET">
                     {{-- Price --}}
                     <div class="mb-3">
-                        <label for="min_price" class="form-label">Min Price</label>
-                        <input type="number" name="min_price" id="min_price" class="form-control" value="{{ request('min_price') }}">
-                        <label for="max_price" class="form-label mt-2">Max Price</label>
-                        <input type="number" name="max_price" id="max_price" class="form-control" value="{{ request('max_price') }}">
+                        <label for="price_min" class="form-label">Min Price</label>
+                        <input type="number" name="price_min" id="price_min" class="form-control" value="{{ request('min_price') }}">
+                        <label for="price_max" class="form-label mt-2">Max Price</label>
+                        <input type="number" name="price_max" id="price_max" class="form-control" value="{{ request('max_price') }}">
                     </div>
 
                     {{-- Location --}}
