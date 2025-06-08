@@ -5,9 +5,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+//Padod arī items
+Route::get('/', [ItemController::class, 'index'])->name('home');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [UserController::class, 'showProfile'])->name('profile');

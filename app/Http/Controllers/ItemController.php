@@ -17,7 +17,8 @@ class ItemController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $items = Item::latest()->get(); // paņem visus ierakstus no datubāzes
+        return view('home', compact('items')); // atgriež skatu un padod $items uz Blade failu
     }
 
     /**
