@@ -9,9 +9,17 @@ use App\Models\User;
 
 class UserController extends Controller
 {
+    // Skats citam lietotājam (publisks profils)
     public function showProfile(User $user)
     {   
-        return view('profile.profile', compact('user'));
+        return view('profile.public', compact('user'));
+    }
+
+    // Skats sev pašam (mans profils)
+    public function myProfile()
+    {
+        $user = Auth::user();
+        return view('profile.private', compact('user'));
     }
 
 

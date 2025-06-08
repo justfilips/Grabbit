@@ -4,7 +4,7 @@
     @if($item->images->isNotEmpty())
         <img src="{{ $item->images->first()->image_path }}" class="card-img-top" alt="{{ $item->title }}">
     @endif
-    
+
     {{-- Rāda pogu vai statusu, ja ir īpašnieks --}}
     @auth
         @if(auth()->id() === $item->user_id && $item->status !== 'sold')
@@ -29,7 +29,7 @@
             <p class="mb-2">
                 <small>
                     Sold by: 
-                    <a href="{{ route('profile.show', $item->user->id) }}">
+                    <a href="{{ route('user.profile', $item->user->id) }}">
                         {{ $item->user->name }}
                     </a>
                 </small>
