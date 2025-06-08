@@ -38,3 +38,4 @@ Route::get('/profile/{user}', [UserController::class, 'showProfile'])->name('use
 Route::patch('/items/{item}/mark-sold', [ItemController::class, 'markAsSold'])->name('items.markSold');
 
 
+Route::get('/chat-contacts', [MessageController::class, 'contacts'])->name('chat.contacts');

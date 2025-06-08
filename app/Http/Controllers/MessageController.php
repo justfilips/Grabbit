@@ -47,5 +47,23 @@ class MessageController extends Controller
 
         return response()->json($message);
     }
+
+    public function contacts()
+    {
+        $user = Auth::user();
+
+        // Get distinct user IDs you have messaged with (sender or receiver)
+        $contactIds = Message::where('sender_id', $user->id)
+                        ->pluck('receiver_id')
+                        ->merge(
+                            Message::where('receiver_id', $user->id)->pluck('sender_id')
+                        )
+                        ->unique()
+                        ->toArray();
+
+        $contacts = User::whereIn('id', $contactIds)->get(['id', 'name']);
+
+        return response()->json($contacts);
+    }
 }
 
