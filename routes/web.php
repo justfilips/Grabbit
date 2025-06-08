@@ -12,6 +12,9 @@ Route::get('/', function () {
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [UserController::class, 'showProfile'])->name('profile');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::get('/profile/edit', [UserController::class, 'edit'])->name('profile.edit');
+    Route::post('/profile/update', [UserController::class, 'update'])->name('profile.update');
+
 });
 Route::resource('item', ItemController::class);
 // Show login form

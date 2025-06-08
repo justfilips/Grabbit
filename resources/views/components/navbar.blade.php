@@ -31,7 +31,6 @@
           role="button" 
           data-bs-toggle="dropdown" 
           aria-expanded="false">
-            <!-- Profile Image Circle -->
             <img 
               src="{{ Auth::user()->profile_image ? asset(Auth::user()->profile_image) : 'https://i.pinimg.com/474x/47/ba/71/47ba71f457434319819ac4a7cbd9988e.jpg' }}" 
               alt="Profile" 
