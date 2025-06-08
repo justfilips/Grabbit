@@ -34,3 +34,4 @@ Route::post('/register', [AuthController::class, 'register'])->name('register');
 
 Route::get('/profile/{user}', [UserController::class, 'showProfile'])->name('profile.show');
 
+Route::get('/chat-contacts', [MessageController::class, 'contacts'])->name('chat.contacts');
