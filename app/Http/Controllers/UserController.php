@@ -27,7 +27,7 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'location' => 'nullable|string|max:255',
             'profile_description' => 'nullable|string',
-            'profile_image' => 'nullable|image|max:2048', // max 2MB
+            'profile_image' => 'nullable|image|max:4096', // max 4MB
         ]);
 
         if ($request->hasFile('profile_image')) {

@@ -62,6 +62,7 @@ class ItemController extends Controller
             'price' => 'required|numeric|min:0',
             'location' => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
+            'image_path' => 'nullable|image|max:4096',
         ]);
 
         $item = Item::create([
