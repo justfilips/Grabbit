@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Item;
 use App\Models\Category;
 use App\Models\ItemImage;
-use App\Models\ImageImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 
 class ItemController extends Controller
@@ -55,11 +55,12 @@ class ItemController extends Controller
         ]);
 
         if ($request->hasFile('image_path')) {
-            $path = $request->file('image_path')->store('item_images', 'public');
+            $path = $request->file('image_path')->store('item_images', 's3'); // uploads to S3!
+            $url = Storage::disk('s3')->url($path); // gets public URL
 
             ItemImage::create([
                 'item_id' => $item->id,
-                'image_path' => $path,
+                'image_path' => $url, // save the public URL
             ]);
         }
 
