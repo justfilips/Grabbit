@@ -15,10 +15,30 @@ class ItemController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $categories = Category::pluck('name');
+
+        $query = Item::with('images');
+
+        if ($request->filled('location')) {
+            $query->where('location', 'like', '%' . $request->location . '%');
+        }
+
+        if ($request->filled('category')) {
+            $query->where('category', $request->category);
+        }
+
+        if ($request->filled('price_min')) {
+            $query->where('price', '>=', $request->price_min);
+        }
+
+        if ($request->filled('price_max')) {
+            $query->where('price', '<=', $request->price_max);
+        }
+        
         $items = Item::latest()->get(); // paņem visus ierakstus no datubāzes
-        return view('home', compact('items')); // atgriež skatu un padod $items uz Blade failu
+        return view('home', compact('items', 'categories')); // atgriež skatu un padod $items uz Blade failu
     }
 
     /**
