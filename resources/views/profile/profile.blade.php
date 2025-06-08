@@ -19,6 +19,10 @@
                     <p><strong>About Me:</strong><br> {{ Auth::user()->profile_description ?? 'No description provided.' }}</p>
                     <p><strong>Average Rating:</strong> {{ number_format(Auth::user()->average_rating, 2) }}</p>
                     <p><strong>Items Listed:</strong> {{ Auth::user()->items->count() }}</p>
+
+                    <a href="{{ route('profile.edit') }}" class="btn btn-primary mt-3">
+                        Edit Profile
+                    </a>
                 </div>
             </div>
         @else
