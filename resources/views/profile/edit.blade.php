@@ -29,6 +29,9 @@
             <div class="mb-3">
                 <label for="profile_image" class="form-label">Profile Image</label>
                 <input type="file" class="form-control" id="profile_image" name="profile_image">
+                @error('profile_image')
+                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                @enderror
                 @if ($user->profile_image)
                     <div class="mt-2">
                         <img src="{{ $user->profile_image }}" alt="Profile Image" width="150" class="img-thumbnail">
