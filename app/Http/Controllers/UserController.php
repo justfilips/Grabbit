@@ -38,7 +38,6 @@ class UserController extends Controller
             $user->profile_image = $url;
         }
 
-        // Update other fields
         $user->name = $validated['name'];
         $user->location = $validated['location'];
         $user->profile_description = $validated['profile_description'];
