@@ -9,7 +9,12 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
-
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [UserController::class, 'showProfile'])->name('profile');
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::get('/profile', [UserController::class, 'profile'])->name('profile')->middleware('auth');
+});
+Route::resource('item', ItemController::class);
 // Show login form
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login.form');
 // Handle login submit
@@ -20,10 +25,3 @@ Route::get('/register', [AuthController::class, 'showRegister'])->name('register
 
 // Handle register submit
 Route::post('/register', [AuthController::class, 'register'])->name('register');
-
-// Logout
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-
-Route::get('/profile', [UserController::class, 'profile'])->name('profile')->middleware('auth');
-
-Route::resource('item', ItemController::class);
