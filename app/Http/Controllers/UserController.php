@@ -10,15 +10,13 @@ class UserController extends Controller
 {
     public function showProfile()
     {
-        // $user = Auth::user();
         return view('profile.profile');
     }
 
     public function edit()
     {
-        return view('profile.edit', [
-            'user' => Auth::user(),
-        ]);
+        $user = Auth::user();
+        return view('profile.edit', compact('user'));
     }
 
     public function update(Request $request)
@@ -32,7 +30,6 @@ class UserController extends Controller
             'profile_image' => 'nullable|image|max:2048', // max 2MB
         ]);
 
-        // Handle profile image upload if exists
         if ($request->hasFile('profile_image')) {
             $path = $request->file('profile_image')->store('profile_images', 's3');
             $url = Storage::disk('s3')->url($path);
