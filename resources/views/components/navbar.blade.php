@@ -2,16 +2,20 @@
   <div class="container">
     <a class="navbar-brand fw-bold" href="{{route('home')}}">Grabbit</a>
 
-    <form class="d-flex flex-grow-1 mx-4" role="search">
+    <form class="d-flex flex-grow-1 mx-4" role="search" method="GET" action="{{ route('home') }}">
       <input
+        name="search"
         class="form-control rounded-pill"
         type="search"
         placeholder="Search items..."
         aria-label="Search"
+        value="{{ request('search') }}"
         style="height: 40px;"
       />
       <button class="btn btn-primary ms-2 rounded-pill px-4" type="submit">Search</button>
     </form>
+
+
 
     <ul class="navbar-nav mb-2 mb-lg-0">
     @guest

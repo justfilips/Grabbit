@@ -5,6 +5,8 @@
             <div class="col-md-3 col-lg-2 border-end pe-4">
                 <h5>Filters</h5>
                 <form action="{{ route('home') }}" method="GET">
+                    {{-- Lai saglabātu search results --}}
+                    <input type="hidden" name="search" value="{{ request('search') }}">
                     {{-- Price --}}
                     <div class="mb-3">
                         <label for="price_min" class="form-label">Min Price</label>

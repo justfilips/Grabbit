@@ -21,6 +21,10 @@ class ItemController extends Controller
 
         $query = Item::with('images');
 
+        if ($request->filled('search')) {
+            $query->where('title', 'like', '%' . $request->search . '%');
+        }
+
         if ($request->filled('location')) {
             $query->where('location', 'like', '%' . $request->location . '%');
         }
