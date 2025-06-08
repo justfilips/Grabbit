@@ -12,7 +12,6 @@ Route::get('/', function () {
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [UserController::class, 'showProfile'])->name('profile');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-    Route::get('/profile', [UserController::class, 'profile'])->name('profile')->middleware('auth');
 });
 Route::resource('item', ItemController::class);
 // Show login form

@@ -8,10 +8,9 @@ use App\Models\User;
 
 class UserController extends Controller
 {
-    public function profile()
+    public function showProfile()
     {
         $user = Auth::user();
-
         return view('profile', compact('user'));
     }
 }
