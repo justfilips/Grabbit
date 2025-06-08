@@ -4,6 +4,19 @@
     @if($item->images->isNotEmpty())
         <img src="{{ $item->images->first()->image_path }}" class="card-img-top" alt="{{ $item->title }}">
     @endif
+    
+    {{-- Rāda pogu vai statusu, ja ir īpašnieks --}}
+    @auth
+        @if(auth()->id() === $item->user_id && $item->status !== 'sold')
+            <form action="{{ route('items.markSold', $item->id) }}" method="POST" class="mt-2">
+                @csrf
+                @method('PATCH')
+                <button type="submit" class="btn btn-warning btn-sm w-100">Mark as Sold</button>
+            </form>
+        @elseif($item->status === 'sold')
+            <span class="badge bg-danger mt-2">Sold</span>
+        @endif
+    @endauth
 
     <div class="card-body d-flex flex-column">
         <h5 class="card-title">{{ $item->title }}</h5>

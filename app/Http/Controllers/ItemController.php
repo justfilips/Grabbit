@@ -19,7 +19,9 @@ class ItemController extends Controller
     {
         $categories = Category::pluck('name');
 
-        $query = Item::with(['images', 'user']);
+        $query = Item::with(['images', 'user'])
+            ->where('status', '!=', 'sold'); // nerāda pārdotās
+
 
         if ($request->filled('search')) {
             $query->where('title', 'like', '%' . $request->search . '%');
@@ -96,6 +98,20 @@ class ItemController extends Controller
 
         return redirect()->route('home')->with('success', 'Item created successfully!');
     }
+
+    public function markAsSold(Item $item)
+    {
+        // Tikai īpašnieks drīkst atzīmēt kā pārdotu
+        if (auth()->id() !== $item->user_id) {
+            abort(403); // Nepieļauj piekļuvi citiem
+        }
+
+        $item->status = 'sold';
+        $item->save();
+
+        return redirect()->back()->with('success', 'Item marked as sold.');
+    }
+
 
 
     /**

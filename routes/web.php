@@ -30,3 +30,6 @@ Route::post('/register', [AuthController::class, 'register'])->name('register');
 
 Route::get('/profile/{user}', [UserController::class, 'showProfile'])->name('profile.show');
 
+Route::patch('/items/{item}/mark-sold', [ItemController::class, 'markAsSold'])->name('items.markSold');
+
+
