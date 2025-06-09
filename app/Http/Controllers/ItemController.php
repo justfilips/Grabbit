@@ -136,7 +136,7 @@ class ItemController extends Controller
         ]);
 
         $item->status = 'sold';
-        $item->buyer_id = $request->buyer_id; // <- šis lauks jābūt datubāzē, ja vēlies saglabāt pircēju
+        $item->buyer_id = $request->buyer_id; // <- šim laukam jābūt datubāzē, ja vēlies saglabāt pircēju
         $item->save();
 
         return redirect()->route('home')->with('success', 'Item marked as sold.');
