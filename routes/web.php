@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\ListingController;
 
 //Padod arī items
 Route::get('/', [ItemController::class, 'index'])->name('home');
@@ -39,3 +40,5 @@ Route::patch('/items/{item}/mark-sold', [ItemController::class, 'markAsSold'])->
 
 
 Route::get('/chat-contacts', [MessageController::class, 'contacts'])->name('chat.contacts');
+
+Route::get('/items/{item}/mark-sold', [ItemController::class, 'markAsSold'])->name('items.markSoldForm');

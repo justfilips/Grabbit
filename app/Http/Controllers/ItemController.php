@@ -8,6 +8,9 @@ use App\Models\ItemImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Message;
+use App\Models\User;
+
 
 
 class ItemController extends Controller
@@ -45,9 +48,15 @@ class ItemController extends Controller
         if ($request->filled('price_max')) {
             $query->where('price', '<=', $request->price_max);
         }
+
+        $contacts = [];
+
+        if (Auth::check()) {
+            $contacts = $this->getChatContacts(); // Pievieno šo
+        }
         
         $items = $query->latest()->get(); // paņem filtrētos ierakstus no datubāzes
-        return view('home', compact('items', 'categories')); // atgriež skatu un padod $items uz Blade failu
+        return view('home', compact('items', 'categories', 'contacts')); // atgriež skatu un padod $items uz Blade failu
     }
 
     /**
@@ -99,18 +108,40 @@ class ItemController extends Controller
         return redirect()->route('home')->with('success', 'Item created successfully!');
     }
 
-    public function markAsSold(Item $item)
+    public function getChatContacts()
+    {
+        $user = Auth::user();
+
+        $contactIds = Message::where('sender_id', $user->id)
+                        ->pluck('receiver_id')
+                        ->merge(
+                            Message::where('receiver_id', $user->id)->pluck('sender_id')
+                        )
+                        ->unique()
+                        ->toArray();
+
+        return User::whereIn('id', $contactIds)->get();
+    }
+
+
+    public function markAsSold(Request $request, Item $item)
     {
         // Tikai īpašnieks drīkst atzīmēt kā pārdotu
         if (auth()->id() !== $item->user_id) {
             abort(403); // Nepieļauj piekļuvi citiem
         }
 
+        $request->validate([
+            'buyer_id' => 'required|exists:users,id',
+        ]);
+
         $item->status = 'sold';
+        $item->buyer_id = $request->buyer_id; // <- šis lauks jābūt datubāzē, ja vēlies saglabāt pircēju
         $item->save();
 
-        return redirect()->back()->with('success', 'Item marked as sold.');
+        return redirect()->route('home')->with('success', 'Item marked as sold.');
     }
+
 
 
 

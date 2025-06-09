@@ -52,14 +52,14 @@
                 @endauth
 
                 {{-- Item grid --}}
-                <div class="row">
-                    @forelse($items as $item)
-                        <div class="col-md-4 mb-4">
-                            <x-item-card :item="$item" />
-                        </div>
-                    @empty
-                        <p>No items found.</p>
-                    @endforelse
+                <div class="container mt-4">
+                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+                        @foreach ($items as $item)
+                            <div class="col">
+                                @include('components.item-card', ['item' => $item, 'contacts' => $contacts])
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </div>

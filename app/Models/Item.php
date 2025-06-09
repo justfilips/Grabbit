@@ -46,4 +46,10 @@ class Item extends Model
     {
         return $this->hasMany(Comment::class);
     }
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class, 'item_id');
+    }
+
 }

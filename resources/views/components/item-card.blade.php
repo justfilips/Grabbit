@@ -11,7 +11,19 @@
             <form action="{{ route('items.markSold', $item->id) }}" method="POST" class="mt-2">
                 @csrf
                 @method('PATCH')
-                <button type="submit" class="btn btn-warning btn-sm w-100">Mark as Sold</button>
+
+                @if(isset($contacts) && count($contacts) > 0)
+                    <select name="buyer_id" class="form-select mb-2" required>
+                        <option value="">Select buyer</option>
+                        @foreach($contacts as $contact)
+                            <option value="{{ $contact->id }}">{{ $contact->name }}</option>
+                        @endforeach
+                    </select>
+
+                    <button type="submit" class="btn btn-warning btn-sm w-100">Mark as Sold</button>
+                @else
+                    <div class="alert alert-secondary small">No message history</div>
+                @endif
             </form>
         @elseif($item->status === 'sold')
             <span class="badge bg-danger mt-2">Sold</span>
