@@ -12,9 +12,10 @@ class Item extends Model
         'title',
         'description',
         'price',
-        'location',
         'image_path',
         'status', //'pending', 'approved', 'sold'
+        'latitude',
+        'longitude',
     ];
 
     public function user()

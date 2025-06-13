@@ -48,5 +48,6 @@
             </p>
         @endif
 
+        <a href="{{ route('item.show', $item->id) }}" class="btn btn-primary mt-auto">View Details</a>
     </div>
 </div>
