@@ -7,7 +7,7 @@
 
     {{-- Rāda pogu vai statusu, ja ir īpašnieks --}}
     @auth
-        @if(auth()->id() === $item->user_id && $item->status !== 'sold')
+        @if(Auth::id() === $item->user_id && $item->status !== 'sold')
             <form action="{{ route('items.markSold', $item->id) }}" method="POST" class="mt-2">
                 @csrf
                 @method('PATCH')

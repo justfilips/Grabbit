@@ -5,7 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MessageController;
-use App\Http\Controllers\ListingController;
+use App\Http\Controllers\ReviewController;
 
 //Padod arī items
 Route::get('/', [ItemController::class, 'index'])->name('home');
@@ -42,3 +42,7 @@ Route::patch('/items/{item}/mark-sold', [ItemController::class, 'markAsSold'])->
 Route::get('/chat-contacts', [MessageController::class, 'contacts'])->name('chat.contacts');
 
 Route::get('/items/{item}/mark-sold', [ItemController::class, 'markAsSold'])->name('items.markSoldForm');
+
+Route::get('/reviews/create', [ReviewController::class, 'create'])->name('reviews.create');
+Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
+

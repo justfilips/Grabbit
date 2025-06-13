@@ -16,7 +16,7 @@
                 <p><strong>Email:</strong> {{ $user->email }}</p>
                 <p><strong>Location:</strong> {{ $user->location ?? 'Not set' }}</p>
                 <p><strong>About Me:</strong><br> {{ $user->profile_description ?? 'No description provided.' }}</p>
-                <p><strong>Average Rating:</strong> {{ number_format($user->average_rating, 2) }}</p>
+                <p><strong>Average Rating:</strong> {{ number_format($user->reviewsReceived()->avg('rating'), 2) }}</p>
                 <p><strong>Items Listed:</strong> {{ $user->items->count() }}</p>
 
                 @auth
@@ -26,6 +26,22 @@
                         </a>
                     @endif
                 @endauth
+            </div>
+            <h4>Saņemtie vērtējumi:</h4>
+            @foreach ($reviews as $review)
+                <div>
+                    <strong>{{ $review->reviewer->name }}</strong> novērtēja ar {{ $review->rating }}/5
+                    <p>{{ $review->comment }}</p>
+                </div>
+            @endforeach
+
+            <h3>{{ $user->name }} sludinājumi:</h3>
+            <div class="row">
+                @foreach ($items as $item)
+                    <div class="col-md-3">
+                        <x-item-card :item="$item" :isSold="$item->status === 'sold'" />
+                    </div>
+                @endforeach
             </div>
         </div>
     </div>

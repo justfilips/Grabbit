@@ -6,20 +6,26 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Item;
 
 class UserController extends Controller
 {
     // Skats citam lietotājam (publisks profils)
     public function showProfile(User $user)
     {   
-        return view('profile.public', compact('user'));
+        $items = Item::where('user_id', $user->id)->with('images')->get();
+        $reviews = $user->reviewsReceived()->with('reviewer')->latest()->get();
+        return view('profile.public', compact('user','items', 'reviews'));
     }
 
     // Skats sev pašam (mans profils)
     public function myProfile()
     {
         $user = Auth::user();
-        return view('profile.private', compact('user'));
+        $myListings = Item::where('user_id', $user->id)->with('images')->get();
+        $boughtItems = $user->boughtItems()->with('images')->get(); // <- Pievienoju ->with('images')
+        $reviews = $user->reviewsReceived()->with('reviewer')->latest()->get();
+        return view('profile.private', compact('user', 'myListings', 'boughtItems', 'reviews'));
     }
 
 
@@ -53,5 +59,6 @@ class UserController extends Controller
 
         return redirect()->route('profile.edit')->with('success', 'Profile updated successfully!');
     }
+    
 
 }

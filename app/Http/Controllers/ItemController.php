@@ -127,7 +127,7 @@ class ItemController extends Controller
     public function markAsSold(Request $request, Item $item)
     {
         // Tikai īpašnieks drīkst atzīmēt kā pārdotu
-        if (auth()->id() !== $item->user_id) {
+        if (Auth::id() !== $item->user_id) {
             abort(403); // Nepieļauj piekļuvi citiem
         }
 
@@ -140,6 +140,15 @@ class ItemController extends Controller
         $item->save();
 
         return redirect()->route('home')->with('success', 'Item marked as sold.');
+    }
+
+    public function purchase(Item $item)
+    {
+        $item->status = 'sold';
+        $item->buyer_id = Auth::id();
+        $item->save();
+
+        return redirect()->route('items.index')->with('success', 'Item purchased successfully!');
     }
 
 

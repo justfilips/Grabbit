@@ -58,6 +58,11 @@ class User extends Authenticatable
         return $this->hasMany(Message::class, 'receiver_id');
     }
 
+    public function boughtItems()
+    {
+        return $this->hasMany(Item::class, 'buyer_id');
+    }
+
 
     /**
      * The attributes that should be hidden for serialization.
