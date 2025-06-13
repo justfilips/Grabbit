@@ -35,12 +35,12 @@ class ItemController extends Controller
         }
 
         if ($request->filled('category')) {
-        // Atrodam atbilstošo kategorijas ID pēc nosaukuma
-        $category = Category::where('name', $request->category)->first();
-        if ($category) {
-            $query->where('category_id', $category->id);
+            // Atrodam atbilstošo kategorijas ID pēc nosaukuma
+            $category = Category::where('name', $request->category)->first();
+            if ($category) {
+                $query->where('category_id', $category->id);
+            }
         }
-    }
         if ($request->filled('price_min')) {
             $query->where('price', '>=', $request->price_min);
         }
