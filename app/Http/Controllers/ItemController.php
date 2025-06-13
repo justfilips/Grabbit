@@ -80,6 +80,8 @@ class ItemController extends Controller
             'price' => 'required|numeric|min:0',
             'location' => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
             'image_path' => 'nullable|image|max:6144',
         ]);
 
@@ -87,8 +89,9 @@ class ItemController extends Controller
             'title' => $validated['title'],
             'description' => $validated['description'],
             'price' => $validated['price'],
-            'location' => $validated['location'],
             'category_id' => $validated['category_id'],
+            'latitude' => $validated['latitude'],
+            'longitude' => $validated['longitude'],
             'user_id' => 1, // or set to a fixed ID for now like 1
             'status' => 'pending', // default value
             'user_id' => Auth::id(),
@@ -157,9 +160,10 @@ class ItemController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show()
+    public function show($id)
     {
-        //
+        $item = Item::with('images')->findOrFail($id);
+        return view('items.show', compact('item'));
     }
 
     /**
