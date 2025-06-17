@@ -14,7 +14,7 @@
         @endif
 
         @if($item->latitude && $item->longitude)
-            <h5 class="mt-4">Approximate Area</h5>
+            <h5 class="mt-4">Area</h5>
             <div id="map" style="height: 300px;" class="mb-3"></div>
         @endif
 
