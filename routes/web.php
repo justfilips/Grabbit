@@ -8,7 +8,6 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\AdminUserController;
-use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\ReportedItemController;
 
 //Padod arī items
@@ -32,6 +31,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/wishlist/toggle/{item}', [WishlistController::class, 'toggle'])->name('wishlist.toggle');
     Route::get('/items/{item}', [ItemController::class, 'show'])->name('items.show');
     Route::delete('/items/{item}', [ItemController::class, 'destroy'])->name('items.destroy');
+    Route::post('/items/{item}/report', [ReportedItemController::class, 'store'])->name('items.report');
+    Route::delete('/listings/{item}', [AdminUserController::class, 'deleteListingFromPanel'])->name('listings.delete');
+    Route::post('/listings/{report}/keep', [AdminUserController::class, 'keepListing'])->name('listings.keep');
+    Route::delete('/items/{item}', [AdminUserController::class, 'deleteListingFromShow'])->name('items.delete');
 });
 
 
