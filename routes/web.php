@@ -9,6 +9,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\WishlistController;
+use App\Http\Controllers\ReportedItemController;
 
 //Padod arī items
 Route::get('/', [ItemController::class, 'index'])->name('home');
@@ -32,6 +33,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/items/{item}', [ItemController::class, 'show'])->name('items.show');
     Route::delete('/items/{item}', [ItemController::class, 'destroy'])->name('items.destroy');
 });
+
 
 Route::resource('item', ItemController::class);
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login.form');

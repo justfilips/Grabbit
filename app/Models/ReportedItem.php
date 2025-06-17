@@ -1,19 +1,11 @@
 <?php
-
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class ReportedItem extends Model
 {
-    use HasFactory;
-
-    protected $fillable = [
-        'item_id',
-        'reporter_id',
-        'reason',
-    ];
+    protected $fillable = ['item_id', 'reported_by', 'reason'];
 
     public function item()
     {
@@ -22,7 +14,6 @@ class ReportedItem extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'reported_by');
     }
-
 }

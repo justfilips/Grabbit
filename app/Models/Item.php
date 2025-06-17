@@ -37,10 +37,14 @@ class Item extends Model
     {
         return $this->hasMany(Review::class);
     }
-
-    public function reportedItems()
+    public function reports()
     {
         return $this->hasMany(ReportedItem::class);
+    }
+
+    public function reportsMade()
+    {
+        return $this->hasMany(ReportedItem::class, 'reported_by');
     }
 
     public function comments()
