@@ -24,7 +24,13 @@ Route::middleware('auth')->group(function () {
     Route::post('/messages', [MessageController::class, 'store'])->name('messages.store');
     Route::get('/admin/panel', [AdminUserController::class, 'panel'])->name('admin.panel');
     Route::post('/admin/users/{user}/promote', [AdminUserController::class, 'promote'])->name('admin.users.promote');
-Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
+    Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
+    Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
+    Route::post('/wishlist/{item}', [WishlistController::class, 'store'])->name('wishlist.store');
+    Route::delete('/wishlist/{item}', [WishlistController::class, 'destroy'])->name('wishlist.destroy');
+    Route::post('/wishlist/toggle/{item}', [WishlistController::class, 'toggle'])->name('wishlist.toggle');
+    Route::get('/items/{item}', [ItemController::class, 'show'])->name('items.show');
+    Route::delete('/items/{item}', [ItemController::class, 'destroy'])->name('items.destroy');
 });
 
 Route::resource('item', ItemController::class);

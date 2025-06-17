@@ -19,10 +19,6 @@
                             <option value="{{ $contact->id }}">{{ $contact->name }}</option>
                         @endforeach
                     </select>
-
-                    <button type="submit" class="btn btn-warning btn-sm w-100">Mark as Sold</button>
-                @else
-                    <div class="alert alert-secondary small">No message history</div>
                 @endif
             </form>
         @elseif($item->status === 'sold')
@@ -45,8 +41,17 @@
                     </button>
                 </form>
             @endif
+    
+            @if ($item->user_id === auth()->id())
+                <form action="{{ route('items.destroy', $item) }}" method="POST" onsubmit="return confirm('Vai tiešām vēlies dzēst šo sludinājumu?')">
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn btn-danger btn-sm">
+                        <i class="bi bi-trash"></i> 
+                    </button>
+                </form>
+            @endif
         @endauth
-
 
         <h5 class="card-title">{{ $item->title }}</h5>
         <p class="card-text text-muted">{{ Str::limit($item->description, 80) }}</p>

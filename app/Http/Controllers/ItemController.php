@@ -154,6 +154,15 @@ class ItemController extends Controller
         return redirect()->route('items.index')->with('success', 'Item purchased successfully!');
     }
 
+    public function destroy(Item $item)
+    {
+        $item->images()->delete();
+        $item->delete();
+
+        return redirect()->route('profile')->with('success', 'Sludinājums izdzēsts veiksmīgi.');
+    }
+
+
 
 
 
@@ -183,12 +192,4 @@ class ItemController extends Controller
         //
     }   
 
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }
