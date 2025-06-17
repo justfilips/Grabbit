@@ -47,6 +47,34 @@
             }).addTo(map);
         </script>
     @endif
+    @auth
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5>Report this listing</h5>
+            </div>
+            <div class="card-body">
+                @if(session('success'))
+                    <div class="alert alert-success">{{ session('success') }}</div>
+                @endif
+                @if(session('error'))
+                    <div class="alert alert-danger">{{ session('error') }}</div>
+                @endif
+
+                <form method="POST" action="{{ route('items.report', $item->id) }}">
+                    @csrf
+                    <div class="mb-3">
+                        <label for="reason" class="form-label">Reason for reporting</label>
+                        <textarea class="form-control" id="reason" name="reason" rows="3" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-danger">Report</button>
+                </form>
+            </div>
+        </div>
+    @endauth
+
+@guest
+    <p><a href="{{ route('login.form') }}">Log in</a> to report this listing.</p>
+@endguest
 
     <!-- Komentāri -->
     <div class="container mt-5">
@@ -74,5 +102,18 @@
             <p class="mt-3">Please <a href="{{ route('login') }}">login</a> to comment.</p>
         @endauth
     </div>
+    <div class="container mt-5">
+        @auth
+            @if(Auth::user()->isAdmin())
+                <form method="POST" action="{{ route('items.delete', $item->id) }}" onsubmit="return confirm('Are you sure you want to delete this listing?')" class="mt-3">
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn btn-danger">Delete Listing</button>
+                </form>
+            @endif
+        @endauth
+
+    </div>
+
 
 </x-layout>
