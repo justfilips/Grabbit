@@ -26,6 +26,12 @@
       @endguest
 
       @auth
+        <li class="nav-item ms-3 d-flex align-items-center">
+          <a href="{{ route('wishlist.index') }}" class="nav-link">
+            <i class="bi bi-heart-fill text-primary fs-4"></i>
+        </a>
+        </li>
+
         <li class="nav-item dropdown">
           <a 
             class="nav-link dropdown-toggle d-flex align-items-center" 

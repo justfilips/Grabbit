@@ -53,4 +53,10 @@ class Item extends Model
         return $this->hasMany(Message::class, 'item_id');
     }
 
+    public function wishedBy()
+    {
+        return $this->belongsToMany(User::class, 'wishlists')->withTimestamps();
+    }
+
+
 }

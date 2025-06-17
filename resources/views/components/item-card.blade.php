@@ -30,7 +30,24 @@
         @endif
     @endauth
 
-    <div class="card-body d-flex flex-column">
+    <div class="card-body flex-column">
+        @auth
+            @if ($item->user_id !== auth()->id())
+                <!-- Sirsniņas forma vai poga -->
+                <form action="{{ route('wishlist.toggle', $item->id) }}" method="POST">
+                    @csrf
+                    <button type="submit" class="btn btn-link p-0">
+                        @if(auth()->user()->wishlist->contains($item->id))
+                            <i class="bi bi-heart-fill text-danger"></i>
+                        @else
+                            <i class="bi bi-heart text-muted"></i>
+                        @endif
+                    </button>
+                </form>
+            @endif
+        @endauth
+
+
         <h5 class="card-title">{{ $item->title }}</h5>
         <p class="card-text text-muted">{{ Str::limit($item->description, 80) }}</p>
         <p class="fw-bold text-primary">{{ $item->price }} €</p>
