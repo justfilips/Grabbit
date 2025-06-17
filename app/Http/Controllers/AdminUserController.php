@@ -3,22 +3,24 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class AdminUserController extends Controller
 {
+    use AuthorizesRequests;
     public function panel()
     {
         abort_unless(Auth::user()->isAdmin(), 403);
 
-        $users = \App\Models\User::where('role', '!=', 'admin')->get();
+        $users = User::where('role', '!=', 'admin')->get();
 
         return view('admin.panel', compact('users'));
     }
 
 
-    public function promote(\App\Models\User $user)
+    public function promote(User $user)
     {
-        abort_unless(Auth::user()->isAdmin(), 403);
+        $this->authorize('promote', $user);
 
         $user->role = 'admin';
         $user->save();

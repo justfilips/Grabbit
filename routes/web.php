@@ -23,7 +23,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/messages', [MessageController::class, 'store'])->name('messages.store');
     Route::get('/admin/panel', [AdminUserController::class, 'panel'])->name('admin.panel');
     Route::post('/admin/users/{user}/promote', [AdminUserController::class, 'promote'])->name('admin.users.promote');
-Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
+    Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
 });
 
 Route::resource('item', ItemController::class);
