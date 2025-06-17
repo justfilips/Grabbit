@@ -19,13 +19,6 @@
                 <p><strong>Average Rating:</strong> {{ number_format($user->reviewsReceived()->avg('rating'), 2) }}</p>
                 <p><strong>Items Listed:</strong> {{ $user->items->count() }}</p>
 
-                @auth
-                    @if(auth()->id() === $user->id)
-                        <a href="{{ route('profile.edit') }}" class="btn btn-primary mt-3">
-                            Edit Profile
-                        </a>
-                    @endif
-                @endauth
             </div>
             <h4>Saņemtie vērtējumi:</h4>
             @foreach ($reviews as $review)
