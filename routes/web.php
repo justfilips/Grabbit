@@ -6,6 +6,7 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\CommentController;
 
 //Padod arī items
 Route::get('/', [ItemController::class, 'index'])->name('home');
@@ -46,3 +47,4 @@ Route::get('/items/{item}/mark-sold', [ItemController::class, 'markAsSold'])->na
 Route::get('/reviews/create', [ReviewController::class, 'create'])->name('reviews.create');
 Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
 
+Route::post('/comments', [CommentController::class, 'store'])->middleware('auth')->name('comments.store');

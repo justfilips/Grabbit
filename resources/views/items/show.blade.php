@@ -47,4 +47,32 @@
             }).addTo(map);
         </script>
     @endif
+
+    <!-- Komentāri -->
+    <div class="container mt-5">
+        <h4>Comments</h4>
+
+        @foreach($item->comments as $comment)
+            <div class="mb-3 p-3 border rounded">
+                <strong>{{ $comment->user->name }}</strong>
+                <p class="mb-0">{{ $comment->content }}</p>
+                <small class="text-muted">{{ $comment->created_at->diffForHumans() }}</small>
+            </div>
+        @endforeach
+
+        @auth
+            <form action="{{ route('comments.store') }}" method="POST" class="mt-4">
+                @csrf
+                <input type="hidden" name="item_id" value="{{ $item->id }}">
+                <div class="mb-3">
+                    <label for="content" class="form-label">Add a comment</label>
+                    <textarea name="content" class="form-control" id="content" rows="3" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Post Comment</button>
+            </form>
+        @else
+            <p class="mt-3">Please <a href="{{ route('login') }}">login</a> to comment.</p>
+        @endauth
+    </div>
+
 </x-layout>
