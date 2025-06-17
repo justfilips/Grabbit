@@ -4,8 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\AdminUserController;
 
 //Padod arī items
@@ -22,6 +23,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/messages', [MessageController::class, 'store'])->name('messages.store');
     Route::get('/admin/panel', [AdminUserController::class, 'panel'])->name('admin.panel');
     Route::post('/admin/users/{user}/promote', [AdminUserController::class, 'promote'])->name('admin.users.promote');
+Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
 });
 
 Route::resource('item', ItemController::class);
