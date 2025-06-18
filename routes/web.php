@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\ReportedItemController;
 use App\Http\Controllers\WishlistController;

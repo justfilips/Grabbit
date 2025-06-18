@@ -19,6 +19,11 @@
                 <p><strong>Average Rating:</strong> {{ number_format($user->reviewsReceived()->avg('rating'), 2) }}</p>
                 <p><strong>Items Listed:</strong> {{ $user->items->count() }}</p>
 
+                @if(auth()->id() !== $user->id)
+                    <button class="btn btn-outline-primary mt-3" onclick="startChat({{ $user->id }}, '{{ $user->name }}')">
+                        Chat with {{ $user->name }}
+                    </button>
+                @endif
             </div>
             <h4>Saņemtie vērtējumi:</h4>
             @foreach ($reviews as $review)

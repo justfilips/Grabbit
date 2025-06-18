@@ -3,7 +3,6 @@
         <h2>Chat with {{ $user->name }}</h2>
 
         <div id="chat-box" style="border:1px solid #ccc; height:300px; overflow-y:scroll; padding:10px; margin-bottom:10px;">
-            <!-- Messages will be inserted here -->
         </div>
 
         <input type="text" id="chat-input" placeholder="Type your message..." style="width:80%;">
@@ -52,7 +51,7 @@
             });
 
             // Optionally refresh messages every few seconds (simple solution for now)
-            setInterval(loadMessages, 3000);
+            setInterval(loadMessages, 500);
         </script>
     </div>
 </x-layout>
