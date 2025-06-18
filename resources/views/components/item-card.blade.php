@@ -19,6 +19,7 @@
                         @endforeach
                     </select>
                 @endif
+                <button data-translate type="submit" class="btn btn-sm btn-warning" title="{{ __('Mark as Sold') }}">Sold</button>
             </form>
         @elseif($item->status === 'sold')
             <span class="badge bg-danger mt-2" data-translate>Sold</span>
