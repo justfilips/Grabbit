@@ -1,25 +1,19 @@
 <x-layout title="Admin Panel">
     <div class="container mt-4">
-        <h2 class="mb-3">Admin Panel</h2>
-
-        {{-- Bootstrap Nav Tabs --}}
+        <h2 class="mb-3" data-translate>Admin Panel</h2>
         <ul class="nav nav-tabs" id="adminTab" role="tablist">
             <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="users-tab" data-bs-toggle="tab" data-bs-target="#users" type="button" role="tab">
+                <button class="nav-link active" id="users-tab" data-bs-toggle="tab" data-bs-target="#users" type="button" role="tab" data-translate>
                     Promote Users
                 </button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="reports-tab" data-bs-toggle="tab" data-bs-target="#reports" type="button" role="tab">
+                <button class="nav-link" id="reports-tab" data-bs-toggle="tab" data-bs-target="#reports" type="button" role="tab" data-translate>
                     Reported Listings
                 </button>
             </li>
         </ul>
-
-        {{-- Tab Content --}}
         <div class="tab-content mt-3" id="adminTabContent">
-
-            {{-- Promote Users Tab --}}
             <div class="tab-pane fade show active" id="users" role="tabpanel">
                 @if(session('success'))
                     <div class="alert alert-success">{{ session('success') }}</div>
@@ -28,10 +22,10 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Email</th>
+                            <th data-translate>Name</th>
+                            <th data-translate>Email</th>
                             <th>Current Role</th>
-                            <th>Action</th>
+                            <th data-translate>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -43,30 +37,30 @@
                                 <td>
                                     <form method="POST" action="{{ route('admin.users.promote', $user->id) }}">
                                         @csrf
-                                        <button class="btn btn-sm btn-success">Promote to Admin</button>
+                                        <button class="btn btn-sm btn-success" data-translate>Promote to Admin</button>
                                     </form>
                                 </td>
                             </tr>
                         @empty
-                            <tr><td colspan="4" class="text-center">No users available for promotion.</td></tr>
+                            <tr>
+                                <td colspan="4" class="text-center" data-translate>No users available for promotion.</td>
+                            </tr>
                         @endforelse
                     </tbody>
                 </table>
             </div>
-
             <div class="tab-pane fade" id="reports" role="tabpanel">
 
-                {{-- Example layout for future implementation --}}
                 @if(isset($reportedListings) && $reportedListings->count())
                     <table class="table table-bordered align-middle">
                         <thead>
                             <tr>
-                                <th>Thumbnail</th>
-                                <th>Title & Description</th>
-                                <th>Reason for Report</th>
-                                <th>Reported By</th>
-                                <th>Created At</th>
-                                <th>Actions</th>
+                                <th data-translate>Thumbnail</th>
+                                <th data-translate>Title & Description</th>
+                                <th data-translate>Reason for Report</th>
+                                <th data-translate>Reported By</th>
+                                <th data-translate>Created At</th>
+                                <th data-translate>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -78,7 +72,6 @@
                                         @else
                                             <span class="text-muted">No image</span>
                                         @endif
-
                                     </td>
                                     <td>
                                         <strong>{{ $report->item->title ?? 'Unknown' }}</strong>
@@ -93,14 +86,12 @@
                                     <td>{{ $report->user->name ?? 'Unknown' }}</td>
                                     <td>{{ $report->item->created_at->format('M d, Y') ?? 'N/A' }}</td>
                                     <td>
-                                        {{-- Delete Listing --}}
                                         <form method="POST" action="{{ route('listings.delete', $report->item->id) }}" style="display:inline-block;">
                                             @csrf
                                             @method('DELETE')
                                             <button class="btn btn-sm btn-danger mb-1" onclick="return confirm('Are you sure you want to delete this listing?')">Delete</button>
                                         </form>
 
-                                        {{-- Keep Listing (remove report) --}}
                                         <form method="POST" action="{{ route('listings.keep', $report->id) }}" style="display:inline-block; margin-left: 5px;">
                                             @csrf
                                             <button class="btn btn-sm btn-secondary mb-1">Keep</button>
@@ -110,9 +101,8 @@
                             @endforeach
                         </tbody>
                     </table>
-
                 @else
-                    <div class="alert alert-secondary">No reported listings found.</div>
+                    <div class="alert alert-secondary" data-translate >No reported listings found.</div>
                 @endif
             </div>
 

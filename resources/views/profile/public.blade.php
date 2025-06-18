@@ -1,6 +1,6 @@
 <x-layout title="Profile">
     <div class="container mt-5">
-        <h2>User Profile</h2>
+        <h2 data-translate>User Profile</h2>
 
         <div class="row mt-4">
             <div class="col-md-4 text-center">
@@ -13,11 +13,11 @@
 
             <div class="col-md-8">
                 <h3>{{ $user->name }}</h3>
-                <p><strong>Email:</strong> {{ $user->email }}</p>
-                <p><strong>Location:</strong> {{ $user->location ?? 'Not set' }}</p>
-                <p><strong>About Me:</strong><br> {{ $user->profile_description ?? 'No description provided.' }}</p>
-                <p><strong>Average Rating:</strong> {{ number_format($user->reviewsReceived()->avg('rating'), 2) }}</p>
-                <p><strong>Items Listed:</strong> {{ $user->items->count() }}</p>
+                <p><strong data-translate>Email:</strong> {{ $user->email }}</p>
+                <p><strong data-translate>Location:</strong> {{ $user->location ?? 'Not set' }}</p>
+                <p><strong data-translate>About Me:</strong><br> {{ $user->profile_description ?? 'No description provided.' }}</p>
+                <p><strong data-translate>Average Rating:</strong> {{ number_format($user->reviewsReceived()->avg('rating'), 2) }}</p>
+                <p><strong data-translate>Items Listed:</strong> {{ $user->items->count() }}</p>
 
                 @if(auth()->id() !== $user->id)
                     <div class="d-flex gap-2 mt-3">
@@ -29,23 +29,22 @@
                             <form action="{{ route('admin.users.delete', $user) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete {{ $user->name }}?');">
                                 @csrf
                                 @method('DELETE')
-                                <button class="btn btn-outline-danger">Delete User</button>
+                                <button class="btn btn-outline-danger" data-translate>Delete User</button>
                             </form>
                         @endif
                     </div>
                 @endif
-
-                                
             </div>
-            <h4>Saņemtie vērtējumi:</h4>
+
+            <h4 data-translate>Received Reviews:</h4>
             @foreach ($reviews as $review)
                 <div>
-                    <strong>{{ $review->reviewer->name }}</strong> novērtēja ar {{ $review->rating }}/5
+                    <strong>{{ $review->reviewer->name }}</strong> <span data-translate>rated</span> {{ $review->rating }}/5
                     <p>{{ $review->comment }}</p>
                 </div>
             @endforeach
 
-            <h3>{{ $user->name }} sludinājumi:</h3>
+            <h3>{{ $user->name }}’s Listings:</h3>
             <div class="row">
                 @foreach ($items as $item)
                     <div class="col-md-3">
