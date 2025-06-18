@@ -78,12 +78,6 @@
                 <h5 data-translate>Report this listing</h5>
             </div>
             <div class="card-body">
-                @if(session('success'))
-                    <div class="alert alert-success">{{ session('success') }}</div>
-                @endif
-                @if(session('error'))
-                    <div class="alert alert-danger">{{ session('error') }}</div>
-                @endif
 
                 <form method="POST" action="{{ route('items.report', $item->id) }}">
                     @csrf

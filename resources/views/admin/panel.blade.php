@@ -15,9 +15,6 @@
         </ul>
         <div class="tab-content mt-3" id="adminTabContent">
             <div class="tab-pane fade show active" id="users" role="tabpanel">
-                @if(session('success'))
-                    <div class="alert alert-success">{{ session('success') }}</div>
-                @endif
 
                 <table class="table table-bordered">
                     <thead>
