@@ -65,7 +65,7 @@
 
                             <div class="mb-2">
                                 <label for="image_path" class="form-label">Item Image</label>
-                                <input type="file" class="form-control form-control-sm" id="image_path" name="image_path" accept="image/*">
+                                <input type="file" name="image_path[]" multiple accept="image/*">
                             </div>
                             <button type="submit" class="btn btn-sm btn-primary w-100">Create Item</button>
                         </form>

@@ -81,12 +81,12 @@ class ItemController extends Controller
             'category_id' => 'required|exists:categories,id',
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
-            'image_path' => 'nullable|image|max:6144',
+            'image_path.*' => 'image|max:6144',
         ], [
             'latitude.required' => 'No location was selected.',
             'longitude.required' => 'Please select a location from the given ones.',
-            'image_path.max' => 'The image is too large. Maximum 6MB.',
-            'image_path.image' => 'The file to be uploaded must be an image.',
+            'image_path.*.max' => 'The image is too large. Maximum 6MB.',
+            'image_path.*.image' => 'The file to be uploaded must be an image.',
         ]);
 
         $item = Item::create([
@@ -102,15 +102,16 @@ class ItemController extends Controller
         ]);
 
         if ($request->hasFile('image_path')) {
-            $path = $request->file('image_path')->store('item_images', 's3'); // uploads to S3!
-            $url = Storage::disk('s3')->url($path); // gets public URL
+            foreach ($request->file('image_path') as $image) {
+                $path = $image->store('item_images', 's3'); // S3 disks
+                $url = Storage::disk('s3')->url($path);
 
-            ItemImage::create([
-                'item_id' => $item->id,
-                'image_path' => $url, // save the public URL
-            ]);
+                ItemImage::create([
+                    'item_id' => $item->id,
+                    'image_path' => $url,
+                ]);
+            }
         }
-
 
         return redirect()->route('home')->with('success', 'Item created successfully!');
     }

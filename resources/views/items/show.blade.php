@@ -3,7 +3,29 @@
         <h2>{{ $item->title }}</h2>
 
         @if($item->images->isNotEmpty())
-            <img src="{{ $item->images->first()->image_path }}" alt="{{ $item->title }}" class="img-fluid mb-4" style="max-height: 400px; object-fit: contain;">
+        <div id="itemImagesCarousel" class="carousel slide mb-4" data-bs-ride="carousel">
+            <style>
+            .carousel-control-prev-icon,
+            .carousel-control-next-icon {
+                filter: invert(1); 
+            }
+            </style>
+            <div class="carousel-inner" style="max-height: 400px;">
+                @foreach($item->images as $key => $image)
+                    <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
+                        <img src="{{ $image->image_path }}" class="d-block w-100" alt="{{ $item->title }}" style="object-fit: contain; max-height: 400px;">
+                    </div>
+                @endforeach
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#itemImagesCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#itemImagesCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
         @endif
 
         <p><strong>Price:</strong> €{{ number_format($item->price, 2) }}</p>
@@ -47,6 +69,9 @@
             }).addTo(map);
         </script>
     @endif
+
+    <!-- Bootstrap JS (make sure Bootstrap 5 JS is included!) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     @auth
         <div class="card mt-4">
             <div class="card-header">
