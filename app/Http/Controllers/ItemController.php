@@ -129,7 +129,7 @@ class ItemController extends Controller
 
     public function markAsSold(Request $request, Item $item)
     {
-        // Tikai īpašnieks drīkst atzīmēt kā pārdotu
+        // tikai īpašnieks drīkst atzīmēt kā pārdotu
         if (Auth::id() !== $item->user_id) {
             abort(403); // Nepieļauj piekļuvi citiem
         }
