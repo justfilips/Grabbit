@@ -20,10 +20,22 @@
                 <p><strong>Items Listed:</strong> {{ $user->items->count() }}</p>
 
                 @if(auth()->id() !== $user->id)
-                    <button class="btn btn-outline-primary mt-3" onclick="startChat({{ $user->id }}, '{{ $user->name }}')">
-                        Chat with {{ $user->name }}
-                    </button>
+                    <div class="d-flex gap-2 mt-3">
+                        <button class="btn btn-outline-primary" onclick="startChat({{ $user->id }}, '{{ $user->name }}')">
+                            Chat with {{ $user->name }}
+                        </button>
+
+                        @if(auth()->user()->isAdmin())
+                            <form action="{{ route('admin.users.delete', $user) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete {{ $user->name }}?');">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-outline-danger">Delete User</button>
+                            </form>
+                        @endif
+                    </div>
                 @endif
+
+                                
             </div>
             <h4>Saņemtie vērtējumi:</h4>
             @foreach ($reviews as $review)

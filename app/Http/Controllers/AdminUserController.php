@@ -59,4 +59,17 @@ class AdminUserController extends Controller
         return redirect()->route('admin.panel')->with('success', 'Report removed, listing kept.');
     }
 
+    public function deleteUser(User $user)
+    {
+        abort_unless(Auth::user()->isAdmin(), 403);
+
+        if ($user->id === Auth::id() || $user->role === 'admin') {
+            return redirect()->back()->with('error', 'You cannot delete this user.');
+        }
+
+        $user->delete();
+
+        return redirect()->route('home')->with('success', "User '{$user->name}' deleted.");
+    }
+
 }

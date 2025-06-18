@@ -7,7 +7,6 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\MessageController;
-use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\ReportedItemController;
 use App\Http\Controllers\WishlistController;
@@ -37,6 +36,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/items/{item}/report', [ReportedItemController::class, 'store'])->name('items.report');
     Route::delete('/listings/{item}', [AdminUserController::class, 'deleteListingFromPanel'])->name('listings.delete');
     Route::post('/listings/{report}/keep', [AdminUserController::class, 'keepListing'])->name('listings.keep');
+    Route::delete('/items/{item}', [AdminUserController::class, 'deleteListingFromShow'])->name('items.delete');
+    Route::delete('/admin/users/{user}', [AdminUserController::class, 'deleteUser'])->name('admin.users.delete');
 });
 
 
