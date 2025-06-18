@@ -15,8 +15,18 @@ class CategorySeeder extends Seeder
             'Clothing',
             'Books',
             'Toys',
-            'Sports Equipment'
+            'Sports Equipment',
+            'Home Appliances',
+            'Garden & Outdoors',
+            'Beauty & Health',
+            'Automotive',
+            'Office Supplies',
+            'Pet Supplies',
+            'Jewelry',
+            'Musical Instruments',
+            'Other'
         ];
+
 
         foreach ($categories as $category) {
             Category::create([
