@@ -63,8 +63,8 @@
 
         @if($item->user)
             <p class="mb-2">
-                <small data-translate>
-                    Sold by: 
+                <small data-translate>Sold by: </small>
+                <small>
                     <a href="{{ route('user.profile', $item->user->id) }}">
                         {{ $item->user->name }}
                     </a>
