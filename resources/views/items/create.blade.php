@@ -10,6 +10,18 @@
                         <form action="{{ route('item.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
 
+                             @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <strong>Fix errors:</strong>
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+
+
                             <div class="mb-2">
                                 <label for="title" class="form-label">Title</label>
                                 <input type="text" class="form-control form-control-sm" id="title" name="title" required value="{{ old('title') }}">
@@ -55,16 +67,6 @@
                                 <label for="image_path" class="form-label">Item Image</label>
                                 <input type="file" class="form-control form-control-sm" id="image_path" name="image_path" accept="image/*">
                             </div>
-
-                            <div class="mb-3">
-                                <label for="status" class="form-label">Status</label>
-                                <select class="form-select form-select-sm" id="status" name="status" required>
-                                    <option value="pending" {{ old('status') == 'pending' ? 'selected' : '' }}>Pending</option>
-                                    <option value="approved" {{ old('status') == 'approved' ? 'selected' : '' }}>Approved</option>
-                                    <option value="sold" {{ old('status') == 'sold' ? 'selected' : '' }}>Sold</option>
-                                </select>
-                            </div>
-
                             <button type="submit" class="btn btn-sm btn-primary w-100">Create Item</button>
                         </form>
                     </div>

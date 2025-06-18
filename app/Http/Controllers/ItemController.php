@@ -78,11 +78,15 @@ class ItemController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'price' => 'required|numeric|min:0',
-            'location' => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
             'image_path' => 'nullable|image|max:6144',
+        ], [
+            'latitude.required' => 'No location was selected.',
+            'longitude.required' => 'Please select a location from the given ones.',
+            'image_path.max' => 'The image is too large. Maximum 6MB.',
+            'image_path.image' => 'The file to be uploaded must be an image.',
         ]);
 
         $item = Item::create([
