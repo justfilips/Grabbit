@@ -24,7 +24,7 @@ class AdminUserController extends Controller
 
     public function promote(User $user)
     {
-        $this->authorize('promote', $user);
+        abort_unless(Auth::user()->isAdmin(), 403);
 
         $user->role = 'admin';
         $user->save();
