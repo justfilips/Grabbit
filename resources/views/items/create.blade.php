@@ -4,7 +4,7 @@
             <div class="col-md-6">
                 <div class="card shadow-sm">
                     <div class="card-header">
-                        <h4 class="mb-0">Create Item</h4>
+                        <h4 class="mb-0" data-translate>Create Item</h4>
                     </div>
                     <div class="card-body">
                         <form action="{{ route('item.store') }}" method="POST" enctype="multipart/form-data">
@@ -23,38 +23,34 @@
 
 
                             <div class="mb-2">
-                                <label for="title" class="form-label">Title</label>
+                                <label for="title" class="form-label" data-translate>Title</label>
                                 <input type="text" class="form-control form-control-sm" id="title" name="title" required value="{{ old('title') }}">
                             </div>
 
                             <div class="mb-2">
-                                <label for="description" class="form-label">Description</label>
+                                <label for="description" class="form-label" data-translate>Description</label>
                                 <textarea class="form-control form-control-sm" id="description" name="description" rows="2" required>{{ old('description') }}</textarea>
                             </div>
 
                             <div class="mb-2">
-                                <label for="price" class="form-label">Price (€)</label>
+                                <label for="price" class="form-label" data-translate>Price (€)</label>
                                 <input type="number" class="form-control form-control-sm" id="price" name="price" required min="0" step="0.01" value="{{ old('price') }}">
                             </div>
 
-                            <!-- Address autocomplete input -->
                             <div class="mb-2 position-relative">
-                                <label for="location" class="form-label">Location (Address)</label>
+                                <label for="location" class="form-label" data-translate>Location (Address)</label>
                                 <input type="text" class="form-control form-control-sm" id="location" name="location" autocomplete="off" required value="{{ old('location') }}">
-                                <!-- Autocomplete dropdown will be appended here -->
                             </div>
 
-                            <!-- Hidden latitude & longitude fields -->
                             <input type="hidden" id="latitude" name="latitude" value="{{ old('latitude') }}">
                             <input type="hidden" id="longitude" name="longitude" value="{{ old('longitude') }}">
 
-                            <!-- Map preview -->
-                            <div id="map" style="height: 300px;" class="mb-3"></div>
+                            <div id="map" style="height: 300px;" class="mb-3" aria-label="Map preview"></div>
 
                             <div class="mb-2">
-                                <label for="category_id" class="form-label">Category</label>
+                                <label for="category_id" class="form-label" data-translate>Category</label>
                                 <select class="form-select form-select-sm" id="category_id" name="category_id" required>
-                                    <option selected disabled value="">Choose...</option>
+                                    <option selected disabled value="">{{ __('Choose...') }}</option>
                                     @foreach ($categories as $category)
                                         <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
                                             {{ $category->name }}
@@ -64,7 +60,7 @@
                             </div>
 
                             <div class="mb-2">
-                                <label for="image_path" class="form-label">Item Image</label>
+                                <label for="image_path" class="form-label" data-translate>Item Image</label>
                                 <input type="file" name="image_path[]" multiple accept="image/*">
                             </div>
                             <button type="submit" class="btn btn-sm btn-primary w-100">Create Item</button>
@@ -75,7 +71,7 @@
         </div>
     </div>
 
-    <!-- Leaflet CSS & JS -->
+    // Leaflet CSS & JS
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
 
@@ -92,7 +88,6 @@
         const latInput = document.getElementById('latitude');
         const lngInput = document.getElementById('longitude');
 
-        // Debounce helper function
         function debounce(func, timeout = 300){
             let timer;
             return (...args) => {
@@ -101,7 +96,6 @@
             };
         }
 
-        // Create autocomplete dropdown container
         const resultsDropdown = document.createElement('div');
         resultsDropdown.style.position = 'absolute';
         resultsDropdown.style.background = '#fff';
@@ -112,7 +106,6 @@
         resultsDropdown.style.overflowY = 'auto';
         resultsDropdown.style.cursor = 'pointer';
 
-        // Append dropdown to input parent
         addressInput.parentNode.style.position = 'relative';
         addressInput.parentNode.appendChild(resultsDropdown);
 
@@ -135,7 +128,6 @@
                             latInput.value = place.lat;
                             lngInput.value = place.lon;
 
-                            // Update map view and marker
                             map.setView([place.lat, place.lon], 13);
                             if(marker){
                                 marker.setLatLng([place.lat, place.lon]);
@@ -149,14 +141,12 @@
                 });
         }));
 
-        // Hide dropdown if user clicks outside
         document.addEventListener('click', (e) => {
             if (!addressInput.contains(e.target)) {
                 resultsDropdown.innerHTML = '';
             }
         });
 
-        // Show marker if lat/lng exist on page load (e.g. after validation error)
         window.addEventListener('load', () => {
             const lat = parseFloat(latInput.value);
             const lng = parseFloat(lngInput.value);

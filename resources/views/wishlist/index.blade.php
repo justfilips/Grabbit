@@ -1,6 +1,6 @@
 <x-layout title="My Wishlist">
     <div class="container mt-4">
-        <h2>Your Wishlist</h2>
+        <h2 data-translate>Your Wishlist</h2>
         <div class="row">
             @forelse ($wishlistItems as $item)
                 <div class="col-md-4 mb-3">
@@ -10,7 +10,6 @@
                         @endif
                         @auth
                             @if ($item->user_id !== auth()->id())
-                                <!-- Sirsniņas forma vai poga -->
                                 <form action="{{ route('wishlist.toggle', $item->id) }}" method="POST">
                                     @csrf
                                     <button type="submit" class="btn btn-link p-3">
@@ -26,12 +25,12 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ $item->title }}</h5>
                             <p>€{{ number_format($item->price, 2) }}</p>
-                            <a href="{{ route('items.show', $item->id) }}" class="btn btn-primary">View</a>
+                            <a href="{{ route('items.show', $item->id) }}" class="btn btn-primary" data-translate>View</a>
                         </div>
                     </div>
                 </div>
             @empty
-                <p>You haven't added anything yet!</p>
+                <p data-translate>You haven't added anything yet!</p>
             @endforelse
         </div>
     </div>
