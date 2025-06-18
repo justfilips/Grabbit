@@ -20,6 +20,7 @@
 
     {{ $slot }}
 
+    @auth
     <div id="chat-widget">
         <div id="chat-toggle" style="position: fixed; bottom: 20px; right: 20px; cursor: pointer; z-index: 9999;">
             <img src="https://static.vecteezy.com/system/resources/thumbnails/014/441/080/small_2x/chat-icon-design-in-blue-circle-png.png" alt="Chat" style="width: 50px; height: 50px;">
@@ -38,7 +39,7 @@
             </div>
         </div>
     </div>
-    
+    @endauth
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
