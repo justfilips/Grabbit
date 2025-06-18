@@ -12,10 +12,10 @@
 
                              @if ($errors->any())
                                 <div class="alert alert-danger">
-                                    <strong>Fix errors:</strong>
+                                    <strong data-translate> Fix errors:</strong>
                                     <ul>
                                         @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
+                                            <li data-translate>{{ $error }}</li>
                                         @endforeach
                                     </ul>
                                 </div>
