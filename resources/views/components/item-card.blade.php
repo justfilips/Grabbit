@@ -43,7 +43,7 @@
             @endif
     
             @if ($item->user_id === auth()->id())
-                <form action="{{ route('items.destroy', $item) }}" method="POST" onsubmit="return confirm('Vai tiešām vēlies dzēst šo sludinājumu?')">
+                <form action="{{ route('item.destroy', $item) }}" method="POST" onsubmit="return confirm('Vai tiešām vēlies dzēst šo sludinājumu?')">
                     @csrf
                     @method('DELETE')
                     <button class="btn btn-danger btn-sm">

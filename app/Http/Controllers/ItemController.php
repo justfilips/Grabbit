@@ -159,7 +159,7 @@ class ItemController extends Controller
         $item->images()->delete();
         $item->delete();
 
-        return redirect()->route('profile')->with('success', 'Sludinājums izdzēsts veiksmīgi.');
+        return redirect()->route('home')->with('success', 'Sludinājums izdzēsts veiksmīgi.');
     }
 
 
