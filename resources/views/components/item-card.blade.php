@@ -41,6 +41,10 @@
         <div>
             <h5 class="card-title">{{ $item->title }}</h5>
 
+            <p class="text-muted mb-1">
+                <small>Seller: {{ $item->user->name }}</small>
+            </p>
+
             <p class="text-muted">
                 {{ Str::limit($item->description, 80) }}
             </p>
