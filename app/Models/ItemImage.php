@@ -14,7 +14,6 @@ class ItemImage extends Model
         'image_path',
     ];
 
-    // Define relationship to Item
     public function item()
     {
         return $this->belongsTo(Item::class);

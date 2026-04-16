@@ -2,7 +2,7 @@
 <div class="container-fluid py-4">
     <div class="row">
 
-        {{-- FILTERS --}}
+         
         <div class="col-md-3 col-lg-2 border-end pe-4">
             <h5>Filters</h5>
 
@@ -10,7 +10,6 @@
 
                 <input type="hidden" name="search" value="{{ request('search') }}">
 
-                {{-- PRICE --}}
                 <div class="mb-3">
                     <label class="form-label">Min Price</label>
                     <input type="number" name="price_min" class="form-control"
@@ -21,7 +20,6 @@
                            value="{{ request('price_max') }}">
                 </div>
 
-                {{-- MAP --}}
                 <div class="mb-3">
                     <label class="form-label">Pick location</label>
                     <div id="map" style="height: 250px; border-radius: 8px;"></div>
@@ -30,7 +28,6 @@
                 <input type="hidden" name="lat" id="lat" value="{{ request('lat') }}">
                 <input type="hidden" name="lng" id="lng" value="{{ request('lng') }}">
 
-                {{-- RADIUS --}}
                 <div class="mb-3">
                     <label class="form-label">Radius (km)</label>
                     <input type="number" name="radius" id="radius"
@@ -38,7 +35,6 @@
                            value="{{ request('radius', 10) }}">
                 </div>
 
-                {{-- CATEGORY --}}
                 <div class="mb-3">
                     <label class="form-label">Category</label>
                     <select name="category" class="form-select">
@@ -56,7 +52,6 @@
             </form>
         </div>
 
-        {{-- RESULTS --}}
         <div class="col-md-9 col-lg-10">
 
             @auth

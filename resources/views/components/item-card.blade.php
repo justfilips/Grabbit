@@ -2,21 +2,18 @@
 
 <div class="card h-100 shadow-sm position-relative">
 
-    {{-- IMAGE --}}
     @if($item->images->isNotEmpty())
         <img src="{{ $item->images->first()->image_path }}"
              class="card-img-top"
              alt="{{ $item->title }}">
     @endif
 
-    {{-- SOLD BADGE --}}
     @if($item->status === 'sold')
         <span class="badge bg-danger position-absolute m-2">
             Sold
         </span>
     @endif
 
-    {{-- HEART WISHLIST BUTTON --}}
     @auth
         @if($item->user_id !== auth()->id())
             <form action="{{ route('wishlist.toggle', $item->id) }}"
@@ -38,10 +35,9 @@
         @endif
     @endauth
 
-    {{-- BODY --}}
     <div class="card-body d-flex flex-column">
 
-        {{-- TOP CONTENT --}}
+        
         <div>
             <h5 class="card-title">{{ $item->title }}</h5>
 
@@ -58,10 +54,8 @@
             </p>
         </div>
 
-        {{-- BUTTONS STICK TO BOTTOM --}}
         <div class="mt-auto">
 
-            {{-- VIEW DETAILS --}}
             <a href="{{ route('item.show', $item->id) }}"
                class="btn btn-outline-primary btn-sm w-100 mb-2">
                 View Details
@@ -72,7 +66,6 @@
 
                     @if($item->status !== 'sold')
 
-                        {{-- MARK AS SOLD --}}
                         <form action="{{ route('items.markSold', $item->id) }}"
                               method="POST"
                               class="mb-2">
@@ -96,7 +89,6 @@
                             </button>
                         </form>
 
-                        {{-- DELETE --}}
                         <form action="{{ route('item.destroy', $item) }}"
                               method="POST">
                             @csrf

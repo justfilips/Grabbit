@@ -13,7 +13,7 @@ class Item extends Model
         'description',
         'price',
         'image_path',
-        'status', //'pending', 'approved', 'sold'
+        'status',
         'latitude',
         'longitude',
     ];

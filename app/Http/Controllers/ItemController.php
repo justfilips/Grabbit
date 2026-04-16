@@ -49,14 +49,13 @@ class ItemController extends Controller
             $lng = (float) $request->lng;
             $radius = (float) $request->radius ?: 10; // km
 
-            // rough bounding box first (fast filter)
+            // rough bounding box first
             $latRange = $radius / 111; // ~1 degree lat ≈ 111km
             $lngRange = $radius / (111 * cos(deg2rad($lat)));
 
             $query->whereBetween('latitude', [$lat - $latRange, $lat + $latRange])
                   ->whereBetween('longitude', [$lng - $lngRange, $lng + $lngRange]);
 
-            // optional: precise filtering in PHP (avoids SQLite HAVING issue)
             $items = $query->get()->filter(function ($item) use ($lat, $lng, $radius) {
                 return $this->distanceKm(
                     $lat,
