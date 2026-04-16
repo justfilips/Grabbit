@@ -28,11 +28,13 @@ class User extends Authenticatable
         'role',
     ];
 
+    // items table contains user_id
     public function items()
     {
         return $this->hasMany(Item::class);
     }
 
+    // one user can have many reviews
     public function reviewsWritten()
     {
         return $this->hasMany(Review::class, 'reviewer_id');

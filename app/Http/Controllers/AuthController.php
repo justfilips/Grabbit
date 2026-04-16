@@ -46,9 +46,10 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
+        // if login successful
         if (Auth::attempt($credentials)) {
 
-            $request->session()->regenerate();
+            $request->session()->regenerate(); // create new session id
 
             return redirect()->intended(route('home'));
         }
@@ -62,9 +63,9 @@ class AuthController extends Controller
     {
         Auth::logout();
 
-        $request->session()->invalidate();
+        $request->session()->invalidate(); // destroy session
 
-        $request->session()->regenerateToken();
+        $request->session()->regenerateToken(); // new CSRF token
 
         return redirect()->route('login.form');
     }

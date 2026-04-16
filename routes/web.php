@@ -9,14 +9,10 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\AdminUserController;
-use App\Http\Controllers\TranslateController;
 use App\Http\Controllers\ReportedItemController;
 
-//Padod arī items
 Route::get('/', [ItemController::class, 'index'])->name('home');
-Route::get('/test', function () {
-    return view('test');
-});
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [UserController::class, 'showProfile'])->name('profile');
@@ -54,5 +50,3 @@ Route::patch('/items/{item}/mark-sold', [ItemController::class, 'markAsSold'])->
 Route::get('/chat-contacts', [MessageController::class, 'contacts'])->name('chat.contacts');
 Route::get('/reviews/create', [ReviewController::class, 'create'])->name('reviews.create');
 Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
-
-Route::post('/translate', [TranslateController::class, 'translate']);

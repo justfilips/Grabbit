@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ReportedItemController extends Controller
 {
+    // POST. reporting an item
     public function store(Request $request, Item $item)
     {
         $request->validate([
@@ -15,7 +16,6 @@ class ReportedItemController extends Controller
         ]);
 
         $alreadyReported = ReportedItem::where('item_id', $item->id)->where('reported_by', Auth::id())->exists();
-
         if ($alreadyReported) {
             return back()->with('error', 'You have already reported this item.');
         }

@@ -2,10 +2,7 @@
 <div class="container mt-5">
 
     <h2>User Profile</h2>
-
     <div class="row mt-4">
-
-        {{-- PROFILE IMAGE --}}
         <div class="col-md-4 text-center">
             @if($user->profile_image)
                 <img src="{{ $user->profile_image }}"
@@ -17,27 +14,21 @@
                      style="max-width:200px;">
             @endif
         </div>
-
-        {{-- INFO --}}
         <div class="col-md-8">
 
             <h3>{{ $user->name }}</h3>
-
             <p><strong>Email:</strong> {{ $user->email }}</p>
             <p><strong>Location:</strong> {{ $user->location ?? 'Not set' }}</p>
             <p><strong>About Me:</strong><br>
                 {{ $user->profile_description ?? 'No description provided.' }}
             </p>
-
             <p><strong>Average Rating:</strong>
                 {{ number_format($user->reviewsReceived()->avg('rating') ?? 0, 2) }}
             </p>
-
             <p><strong>Items Listed:</strong>
                 {{ $user->items->count() }}
             </p>
 
-            {{-- CHAT BUTTON --}}
             @auth
                 @if(auth()->id() !== $user->id)
                     <button class="btn btn-outline-primary"
@@ -47,7 +38,6 @@
                 @endif
             @endauth
 
-            {{-- ADMIN DELETE --}}
             @auth
                 @if(auth()->user()->isAdmin())
                     <form action="{{ route('admin.users.delete', $user) }}"
@@ -68,7 +58,6 @@
         </div>
     </div>
 
-    {{-- REVIEWS --}}
     <h4 class="mt-4">Received Reviews:</h4>
 
     @foreach ($reviews as $review)
@@ -79,7 +68,6 @@
         </div>
     @endforeach
 
-    {{-- LISTINGS --}}
     <h3 class="mt-4">{{ $user->name }}’s Listings:</h3>
 
     <div class="row">

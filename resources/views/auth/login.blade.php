@@ -46,32 +46,3 @@
         </div>
     </div>
 </x-layout>
-
-<script>
-async function translatePage(targetLang) {
-    const elements = [...document.querySelectorAll('[ ]')];
-    const texts = elements.map(el => el.placeholder || el.textContent);
-
-    const response = await fetch('/translate', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': '{{ csrf_token() }}',
-        },
-        body: JSON.stringify({
-            texts,
-            target: targetLang
-        })
-    });
-
-    const data = await response.json();
-
-    data.translations.forEach((translated, i) => {
-        if(elements[i].placeholder) {
-            elements[i].placeholder = translated;
-        } else {
-            elements[i].textContent = translated;
-        }
-    });
-}
-</script>

@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let activeChatUserId = null;
     const currentUserId = {{ auth()->check() ? auth()->id() : 'null' }};
 
-    // TOGGLE
+    // toggle
     chatToggle.addEventListener('click', () => {
         const open = chatPanel.style.display === 'block';
 
@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // CONTACTS
+    // contacts
     function loadContacts() {
         fetch('/chat-contacts')
             .then(r => r.json())
@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
 
-    // MESSAGES (🔥 FIXED UI HERE)
+    // messages
     function loadMessages(userId) {
         fetch('/messages/' + userId)
             .then(r => r.json())
@@ -146,7 +146,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
 
-    // SEND
+    // sending
     chatSend.addEventListener('click', () => {
 
         if (!activeChatUserId) {
@@ -174,7 +174,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // GLOBAL CHAT OPEN
+    // when opening chat
     window.startChat = function (userId, userName) {
         chatPanel.style.display = 'block';
         activeChatUserId = userId;

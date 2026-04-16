@@ -9,12 +9,6 @@ use Illuminate\Support\Facades\Auth;
 
 class MessageController extends Controller
 {
-    // Show chat view
-    public function show(User $user)
-    {
-        return view('chat.show', compact('user'));
-    }
-
     // Get messages between current user and $user
     public function index(User $user)
     {
@@ -43,16 +37,14 @@ class MessageController extends Controller
             'message' => $request->message,
         ]);
 
-        // Later we will add broadcasting here
-
         return response()->json($message);
     }
 
+    // get all users u have messaged before
     public function contacts()
     {
         $user = Auth::user();
-
-        // Get distinct user IDs you have messaged with (sender or receiver)
+        //get all ids where im sender_id and reciever_id
         $contactIds = Message::where('sender_id', $user->id)
                         ->pluck('receiver_id')
                         ->merge(

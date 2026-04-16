@@ -23,18 +23,19 @@ class UserController extends Controller
     {
         $user = Auth::user();
         $myListings = Item::where('user_id', $user->id)->with('images')->get();
-        $boughtItems = $user->boughtItems()->with('images')->get(); // <- Pievienoju ->with('images')
+        $boughtItems = $user->boughtItems()->with('images')->get();
         $reviews = $user->reviewsReceived()->with('reviewer')->latest()->get();
         return view('profile.private', compact('user', 'myListings', 'boughtItems', 'reviews'));
     }
 
-
+    //  GET edit
     public function edit()
     {
         $user = Auth::user();
         return view('profile.edit', compact('user'));
     }
 
+    // POST edit
     public function update(Request $request)
     {
         $user = Auth::user();
@@ -43,7 +44,7 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'location' => 'nullable|string|max:255',
             'profile_description' => 'nullable|string',
-            'profile_image' => 'nullable|image|max:4096', // max 4MB
+            'profile_image' => 'nullable|image|max:4096',
         ]);
 
         if ($request->hasFile('profile_image')) {
