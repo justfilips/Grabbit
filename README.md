@@ -43,7 +43,7 @@ Form used to create new listings with title, description, price, images, and loc
 
 ### Item Details
 ![Item Details](screenshots/show.jpg)
-(screenshots/show1.jpg)
+!(screenshots/show1.jpg)
 
 
 Detailed view of a listing including images, description, map location, comments, and report option.
