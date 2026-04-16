@@ -13,6 +13,12 @@ The main page where all listings are displayed. Users can browse items and use f
 
 ---
 
+### Filter System
+![Filters](screenshots/filter.jpg)
+
+Used the full filter system to narrow down listings based on price, location, category, and radius search.
+---
+
 ### Login
 ![Login](screenshots/login.jpg)
 
