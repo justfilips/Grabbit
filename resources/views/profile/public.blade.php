@@ -19,7 +19,7 @@
                 <p><strong  >Average Rating:</strong> {{ number_format($user->reviewsReceived()->avg('rating'), 2) }}</p>
                 <p><strong  >Items Listed:</strong> {{ $user->items->count() }}</p>
 
-                @if(auth()->id() !== $user->id)
+                @if(auth()->check() && auth()->id() !== $user->id)
                     <div class="d-flex gap-2 mt-3">
                         <button class="btn btn-outline-primary" onclick="startChat({{ $user->id }}, '{{ $user->name }}')">
                             Chat with {{ $user->name }}
