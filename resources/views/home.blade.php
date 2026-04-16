@@ -53,6 +53,15 @@
         </div>
 
         <div class="col-md-9 col-lg-10">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+
+                @auth
+                    <a href="{{ route('item.create') }}" class="btn btn-success">
+                        + Create Item
+                    </a>
+                @endauth
+
+            </div>
 
             @auth
                 <p>Welcome back, {{ auth()->user()->name }}!</p>

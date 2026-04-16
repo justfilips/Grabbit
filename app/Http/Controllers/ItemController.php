@@ -47,29 +47,28 @@ class ItemController extends Controller
 
             $lat = (float) $request->lat;
             $lng = (float) $request->lng;
-            $radius = (float) $request->radius ?: 10; // km
+            $radius = (float) ($request->radius ?: 10);
 
-            // rough bounding box first
-            $latRange = $radius / 111; // ~1 degree lat ≈ 111km
+            $latRange = $radius / 111;
             $lngRange = $radius / (111 * cos(deg2rad($lat)));
 
-            $query->whereBetween('latitude', [$lat - $latRange, $lat + $latRange])
-                  ->whereBetween('longitude', [$lng - $lngRange, $lng + $lngRange]);
-
-            $items = $query->get()->filter(function ($item) use ($lat, $lng, $radius) {
-                return $this->distanceKm(
-                    $lat,
-                    $lng,
-                    $item->latitude,
-                    $item->longitude
-                ) <= $radius;
-            });
+            $items = $query
+                ->whereBetween('latitude', [$lat - $latRange, $lat + $latRange])
+                ->whereBetween('longitude', [$lng - $lngRange, $lng + $lngRange])
+                ->get()
+                ->filter(function ($item) use ($lat, $lng, $radius) {
+                    return $this->distanceKm(
+                        $lat,
+                        $lng,
+                        $item->latitude,
+                        $item->longitude
+                    ) <= $radius;
+                });
 
         } else {
             $items = $query->latest()->get();
         }
 
-        // CHAT CONTACTS
         $contacts = Auth::check()
             ? $this->getChatContacts()
             : [];
@@ -78,7 +77,7 @@ class ItemController extends Controller
     }
 
     /**
-     * Haversine distance formula (km)
+     * Haversine distance
      */
     private function distanceKm($lat1, $lon1, $lat2, $lon2)
     {
@@ -87,11 +86,11 @@ class ItemController extends Controller
         $dLat = deg2rad($lat2 - $lat1);
         $dLon = deg2rad($lon2 - $lon1);
 
-        $a = sin($dLat/2) * sin($dLat/2) +
-             cos(deg2rad($lat1)) * cos(deg2rad($lat2)) *
-             sin($dLon/2) * sin($dLon/2);
+        $a = sin($dLat / 2) * sin($dLat / 2)
+            + cos(deg2rad($lat1)) * cos(deg2rad($lat2))
+            * sin($dLon / 2) * sin($dLon / 2);
 
-        $c = 2 * atan2(sqrt($a), sqrt(1-$a));
+        $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
 
         return $earthRadius * $c;
     }
@@ -112,17 +111,28 @@ class ItemController extends Controller
             'location' => 'required|string|max:255',
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
-            'image_path.*' => 'image|max:6144',
+
+            // FIXED
+            'image_path' => 'nullable|array',
+            'image_path.*' => 'nullable|image|max:6144',
         ]);
 
+        // REMOVE image array from item table (IMPORTANT FIX)
+        $data = $validated;
+        unset($data['image_path']);
+
         $item = Item::create([
-            ...$validated,
+            ...$data,
             'user_id' => Auth::id(),
             'status' => 'pending',
         ]);
 
+        // SAFE IMAGE UPLOAD
         if ($request->hasFile('image_path')) {
             foreach ($request->file('image_path') as $image) {
+
+                if (!$image) continue;
+
                 $path = $image->store('item_images', 's3');
                 $url = Storage::disk('s3')->url($path);
 
