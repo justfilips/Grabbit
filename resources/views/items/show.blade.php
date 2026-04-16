@@ -1,9 +1,9 @@
 <x-layout title="{{ $item->title }}">
     <div class="container mt-5">
         <h2>{{ $item->title }}</h2>
-        <p class="text-muted">
-            Seller: {{ $item->user->name }}
-        </p>
+        <a href="{{ route('user.profile', $item->user->id) }}">
+            {{ $item->user->name }}
+        </a>
 
         @if($item->images->isNotEmpty())
         <div id="itemImagesCarousel" class="carousel slide mb-4" data-bs-ride="carousel">
