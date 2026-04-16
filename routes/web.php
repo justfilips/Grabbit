@@ -52,7 +52,6 @@ Route::get('/profile', [UserController::class, 'myProfile'])->name('profile');
 Route::get('/profile/{user}', [UserController::class, 'showProfile'])->name('user.profile');
 Route::patch('/items/{item}/mark-sold', [ItemController::class, 'markAsSold'])->name('items.markSold');
 Route::get('/chat-contacts', [MessageController::class, 'contacts'])->name('chat.contacts');
-Route::get('/items/{item}/mark-sold', [ItemController::class, 'markAsSold'])->name('items.markSoldForm');
 Route::get('/reviews/create', [ReviewController::class, 'create'])->name('reviews.create');
 Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
 

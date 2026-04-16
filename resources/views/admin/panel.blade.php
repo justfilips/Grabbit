@@ -1,14 +1,14 @@
 <x-layout title="Admin Panel">
     <div class="container mt-4">
-        <h2 class="mb-3" data-translate>Admin Panel</h2>
+        <h2 class="mb-3"  >Admin Panel</h2>
         <ul class="nav nav-tabs" id="adminTab" role="tablist">
             <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="users-tab" data-bs-toggle="tab" data-bs-target="#users" type="button" role="tab" data-translate>
+                <button class="nav-link active" id="users-tab" data-bs-toggle="tab" data-bs-target="#users" type="button" role="tab"  >
                     Promote Users
                 </button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="reports-tab" data-bs-toggle="tab" data-bs-target="#reports" type="button" role="tab" data-translate>
+                <button class="nav-link" id="reports-tab" data-bs-toggle="tab" data-bs-target="#reports" type="button" role="tab"  >
                     Reported Listings
                 </button>
             </li>
@@ -19,10 +19,10 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th data-translate>Name</th>
-                            <th data-translate>Email</th>
+                            <th  >Name</th>
+                            <th  >Email</th>
                             <th>Current Role</th>
-                            <th data-translate>Action</th>
+                            <th  >Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -34,13 +34,13 @@
                                 <td>
                                     <form method="POST" action="{{ route('admin.users.promote', $user->id) }}">
                                         @csrf
-                                        <button class="btn btn-sm btn-success" data-translate>Promote to Admin</button>
+                                        <button class="btn btn-sm btn-success"  >Promote to Admin</button>
                                     </form>
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4" class="text-center" data-translate>No users available for promotion.</td>
+                                <td colspan="4" class="text-center"  >No users available for promotion.</td>
                             </tr>
                         @endforelse
                     </tbody>
@@ -52,12 +52,12 @@
                     <table class="table table-bordered align-middle">
                         <thead>
                             <tr>
-                                <th data-translate>Thumbnail</th>
-                                <th data-translate>Title & Description</th>
-                                <th data-translate>Reason for Report</th>
-                                <th data-translate>Reported By</th>
-                                <th data-translate>Created At</th>
-                                <th data-translate>Actions</th>
+                                <th  >Thumbnail</th>
+                                <th  >Title & Description</th>
+                                <th  >Reason for Report</th>
+                                <th  >Reported By</th>
+                                <th  >Created At</th>
+                                <th  >Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -99,7 +99,7 @@
                         </tbody>
                     </table>
                 @else
-                    <div class="alert alert-secondary" data-translate >No reported listings found.</div>
+                    <div class="alert alert-secondary"   >No reported listings found.</div>
                 @endif
             </div>
 

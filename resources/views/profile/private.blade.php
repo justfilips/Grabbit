@@ -1,6 +1,6 @@
 <x-layout title="My Profile">
     <div class="container mt-5">
-        <h2 data-translate>My Profile</h2>
+        <h2  >My Profile</h2>
 
         <div class="row mt-4">
             <div class="col-md-4 text-center">
@@ -13,25 +13,25 @@
 
             <div class="col-md-8">
                 <h3>{{ $user->name }}</h3>
-                <p><strong data-translate>Email:</strong> {{ $user->email }}</p>
-                <p><strong data-translate>Location:</strong> {{ $user->location ?? 'Not set' }}</p>
-                <p><strong data-translate>About Me:</strong><br> {{ $user->profile_description ?? 'No description provided.' }}</p>
-                <p><strong data-translate>Average Rating:</strong> {{ number_format($user->reviewsReceived()->avg('rating'), 2) }}</p>
-                <p><strong data-translate>Items Listed:</strong> {{ $user->items->count() }}</p>
+                <p><strong  >Email:</strong> {{ $user->email }}</p>
+                <p><strong  >Location:</strong> {{ $user->location ?? 'Not set' }}</p>
+                <p><strong  >About Me:</strong><br> {{ $user->profile_description ?? 'No description provided.' }}</p>
+                <p><strong  >Average Rating:</strong> {{ number_format($user->reviewsReceived()->avg('rating'), 2) }}</p>
+                <p><strong  >Items Listed:</strong> {{ $user->items->count() }}</p>
 
-                <a href="{{ route('profile.edit') }}" class="btn btn-primary mt-3" data-translate>Edit Profile</a>
+                <a href="{{ route('profile.edit') }}" class="btn btn-primary mt-3"  >Edit Profile</a>
             </div>
         </div>
 
-        <h4 data-translate>Received Reviews:</h4>
+        <h4  >Received Reviews:</h4>
         @foreach ($reviews as $review)
             <div>
-                <strong>{{ $review->reviewer->name }}</strong> <span data-translate>rated</span> {{ $review->rating }}/5
+                <strong>{{ $review->reviewer->name }}</strong> <span  >rated</span> {{ $review->rating }}/5
                 <p>{{ $review->comment }}</p>
             </div>
         @endforeach
 
-        <h3 data-translate>My Listings</h3>
+        <h3  >My Listings</h3>
         <div class="row">
             @foreach ($myListings as $item)
                 <div class="col-md-4 mb-3">
@@ -40,7 +40,7 @@
             @endforeach
         </div>
 
-        <h3 data-translate>Purchased Listings</h3>
+        <h3  >Purchased Listings</h3>
         <div class="row">
             @forelse ($boughtItems as $item)
                 <div class="col-md-4">
@@ -49,7 +49,7 @@
                         <form action="{{ route('reviews.create') }}" method="GET">
                             <input type="hidden" name="item_id" value="{{ $item->id }}">
                             <input type="hidden" name="reviewed_id" value="{{ $item->user_id }}">
-                            <button type="submit" class="btn btn-sm btn-outline-primary" data-translate>Review Seller</button>
+                            <button type="submit" class="btn btn-sm btn-outline-primary"  >Review Seller</button>
                         </form>
                     @endif
                 </div>

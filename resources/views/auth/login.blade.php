@@ -1,13 +1,13 @@
 <x-layout :title="'Login'">
     <div class="d-flex justify-content-center align-items-center vh-100">
         <div class="card p-4 shadow" style="width: 400px;">
-            <h2 class="text-center mb-4" data-translate>Login</h2>
+            <h2 class="text-center mb-4"  >Login</h2>
 
             <form method="POST" action="{{ route('login') }}">
                 @csrf
 
                 <div class="mb-3">
-                    <label for="email" class="form-label" data-translate>Email Address</label>
+                    <label for="email" class="form-label"  >Email Address</label>
                     <input 
                         type="email" 
                         class="form-control @error('email') is-invalid @enderror" 
@@ -23,7 +23,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="password" class="form-label" data-translate>Password</label>
+                    <label for="password" class="form-label"  >Password</label>
                     <input 
                         type="password" 
                         class="form-control @error('password') is-invalid @enderror" 
@@ -36,9 +36,9 @@
                     @enderror
                 </div>
 
-                <button type="submit" class="btn btn-primary w-100" data-translate>Login</button>
+                <button type="submit" class="btn btn-primary w-100"  >Login</button>
 
-                <p class="text-center mt-3" data-translate>Don't have an account?</p>
+                <p class="text-center mt-3"  >Don't have an account?</p>
                 <p class="text-center mt-1">
                     <a href="{{ route('register.form') }}">Register here</a>
                 </p>
@@ -49,7 +49,7 @@
 
 <script>
 async function translatePage(targetLang) {
-    const elements = [...document.querySelectorAll('[data-translate]')];
+    const elements = [...document.querySelectorAll('[ ]')];
     const texts = elements.map(el => el.placeholder || el.textContent);
 
     const response = await fetch('/translate', {

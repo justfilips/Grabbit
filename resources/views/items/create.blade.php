@@ -4,7 +4,7 @@
             <div class="col-md-6">
                 <div class="card shadow-sm">
                     <div class="card-header">
-                        <h4 class="mb-0" data-translate>Create Item</h4>
+                        <h4 class="mb-0"  >Create Item</h4>
                     </div>
                     <div class="card-body">
                         <form action="{{ route('item.store') }}" method="POST" enctype="multipart/form-data">
@@ -12,10 +12,10 @@
 
                              @if ($errors->any())
                                 <div class="alert alert-danger">
-                                    <strong data-translate> Fix errors:</strong>
+                                    <strong  > Fix errors:</strong>
                                     <ul>
                                         @foreach ($errors->all() as $error)
-                                            <li data-translate>{{ $error }}</li>
+                                            <li  >{{ $error }}</li>
                                         @endforeach
                                     </ul>
                                 </div>
@@ -23,22 +23,22 @@
 
 
                             <div class="mb-2">
-                                <label for="title" class="form-label" data-translate>Title</label>
+                                <label for="title" class="form-label"  >Title</label>
                                 <input type="text" class="form-control form-control-sm" id="title" name="title" required value="{{ old('title') }}">
                             </div>
 
                             <div class="mb-2">
-                                <label for="description" class="form-label" data-translate>Description</label>
+                                <label for="description" class="form-label"  >Description</label>
                                 <textarea class="form-control form-control-sm" id="description" name="description" rows="2" required>{{ old('description') }}</textarea>
                             </div>
 
                             <div class="mb-2">
-                                <label for="price" class="form-label" data-translate>Price (€)</label>
+                                <label for="price" class="form-label"  >Price (€)</label>
                                 <input type="number" class="form-control form-control-sm" id="price" name="price" required min="0" step="0.01" value="{{ old('price') }}">
                             </div>
 
                             <div class="mb-2 position-relative">
-                                <label for="location" class="form-label" data-translate>Location (Address)</label>
+                                <label for="location" class="form-label"  >Location (Address)</label>
                                 <input type="text" class="form-control form-control-sm" id="location" name="location" autocomplete="off" required value="{{ old('location') }}">
                             </div>
 
@@ -48,7 +48,7 @@
                             <div id="map" style="height: 300px;" class="mb-3" aria-label="Map preview"></div>
 
                             <div class="mb-2">
-                                <label for="category_id" class="form-label" data-translate>Category</label>
+                                <label for="category_id" class="form-label"  >Category</label>
                                 <select class="form-select form-select-sm" id="category_id" name="category_id" required>
                                     <option selected disabled value="">{{ __('Choose...') }}</option>
                                     @foreach ($categories as $category)
@@ -60,7 +60,7 @@
                             </div>
 
                             <div class="mb-2">
-                                <label for="image_path" class="form-label" data-translate>Item Image</label>
+                                <label for="image_path" class="form-label"  >Item Image</label>
                                 <input type="file" name="image_path[]" multiple accept="image/*">
                             </div>
                             <button type="submit" class="btn btn-sm btn-primary w-100">Create Item</button>

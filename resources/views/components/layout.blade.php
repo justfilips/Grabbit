@@ -11,11 +11,11 @@
     <x-navbar />
     
     @if (session('success'))
-        <div class="alert alert-success" data-translate>{{ session('success') }}</div>
+        <div class="alert alert-success"   >{{ session('success') }}</div>
     @endif
 
     @if (session('error'))
-        <div class="alert alert-danger" data-translate>{{ session('error') }}</div>
+        <div class="alert alert-danger"   >{{ session('error') }}</div>
     @endif
 
     {{ $slot }}
@@ -72,7 +72,7 @@
 
     // translate without resetting cookie
     async function doTranslate(targetLang) {
-        const elements = [...document.querySelectorAll('[data-translate]')];
+        const elements = [...document.querySelectorAll('[  ]')];
 
         const texts = elements.map(el => el.placeholder || el.textContent);
 

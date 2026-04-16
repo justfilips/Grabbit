@@ -1,13 +1,13 @@
 <x-layout :title="'Register'">
     <div class="d-flex justify-content-center align-items-center vh-100">
         <div class="card p-4 shadow" style="width: 400px;">
-            <h2 class="text-center mb-4" data-translate>Register</h2>
+            <h2 class="text-center mb-4"  >Register</h2>
 
             <form method="POST" action="{{ route('register') }}">
                 @csrf
 
                 <div class="mb-3">
-                    <label for="name" class="form-label" data-translate>Full Name</label>
+                    <label for="name" class="form-label"  >Full Name</label>
                     <input 
                         type="text" 
                         class="form-control @error('name') is-invalid @enderror" 
@@ -23,7 +23,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="email" class="form-label" data-translate>Email Address</label>
+                    <label for="email" class="form-label"  >Email Address</label>
                     <input 
                         type="email" 
                         class="form-control @error('email') is-invalid @enderror" 
@@ -38,7 +38,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="password" class="form-label" data-translate>Password</label>
+                    <label for="password" class="form-label"  >Password</label>
                     <input 
                         type="password" 
                         class="form-control @error('password') is-invalid @enderror" 
@@ -52,7 +52,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="password_confirmation" class="form-label" data-translate>Confirm Password</label>
+                    <label for="password_confirmation" class="form-label"  >Confirm Password</label>
                     <input 
                         type="password" 
                         class="form-control @error('password_confirmation') is-invalid @enderror" 
@@ -65,10 +65,10 @@
                     @enderror
                 </div>
 
-                <button type="submit" class="btn btn-primary w-100" data-translate>Register</button>
+                <button type="submit" class="btn btn-primary w-100"  >Register</button>
 
                 <p class="text-center mt-3">
-                    <span data-translate>Already have an account?</span> 
+                    <span  >Already have an account?</span> 
                     <a href="{{ route('login.form') }}">Login here</a>
                 </p>
             </form>
@@ -78,7 +78,7 @@
 
 <script>
 async function translatePage(targetLang) {
-    const elements = [...document.querySelectorAll('[data-translate]')];
+    const elements = [...document.querySelectorAll('[ ]')];
     const texts = elements.map(el => el.placeholder || el.textContent);
 
     const response = await fetch('/translate', {
