@@ -1,61 +1,107 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Marketplace Web App
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A simple marketplace application where users can list items, communicate with each other, and manage buying and selling inside the platform. Built using Laravel and Bootstrap.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Screenshots
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Home Page
+![Home Page](screenshots/home.jpg)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+The main page where all listings are displayed. Users can browse items and use filters to narrow down results.
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Login
+![Login](screenshots/login.jpg)
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Login page for existing users to access their accounts.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+### Register
+![Register](screenshots/register.jpg)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Registration page for new users to create an account.
 
-### Premium Partners
+---
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### User Profile
+![Profile](screenshots/profile.jpg)
 
-## Contributing
+Public user profile showing user information, their listings, and the option to start a chat.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+---
 
-## Code of Conduct
+### Create Item
+![Create Item](screenshots/createitem.jpg)
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Form used to create new listings with title, description, price, images, and location.
 
-## Security Vulnerabilities
+---
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Item Details
+![Item Details](screenshots/show.jpg)
+(screenshots/show1.jpg)
 
-## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Detailed view of a listing including images, description, map location, comments, and report option.
+
+---
+
+### Wishlist
+![Wishlist](screenshots/wishlist.jpg)
+
+Page showing items saved by the user for later viewing.
+
+---
+
+### Chat System
+![Chat](screenshots/chat.jpg)
+
+Messaging system that allows users to communicate directly with each other.
+
+---
+
+### Select Buyer / Mark as Sold
+![Select Buyer](screenshots/selectbuyer.jpg)
+
+Interface for sellers to choose a buyer and mark an item as sold.
+
+---
+
+### Admin Panel - User Promotion
+![Admin Promote](screenshots/admin1.jpg)
+
+Admin feature for promoting users to administrator role.
+
+---
+
+### Admin Panel - Reported Listings
+![Admin Reports](screenshots/admin2.jpg)
+
+Admin view showing reported listings that require moderation.
+
+---
+
+## Features
+
+- User authentication system
+- Item listing creation and management
+- Image uploads for listings
+- Wishlist functionality
+- Direct messaging between users
+- Reporting system for listings
+- Admin moderation tools
+- Mark items as sold with buyer selection
+
+---
+
+## Tech Stack
+
+- Laravel 12
+- Blade templates
+- Bootstrap 5
+- MySQL / PostgreSQL
+- Leaflet for maps
