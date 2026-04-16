@@ -4,67 +4,59 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{{ $title }}</title>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 </head>
+
 <body>
-    <x-navbar />
-    
-    @if (session('success'))
-        <div class="alert alert-success"   >{{ session('success') }}</div>
-    @endif
+<x-navbar />
 
-    @if (session('error'))
-        <div class="alert alert-danger"   >{{ session('error') }}</div>
-    @endif
+@if (session('success'))
+    <div class="alert alert-success">{{ session('success') }}</div>
+@endif
 
-    {{ $slot }}
+@if (session('error'))
+    <div class="alert alert-danger">{{ session('error') }}</div>
+@endif
 
-    @auth
-    <div id="chat-widget">
-        <div id="chat-toggle" style="position: fixed; bottom: 20px; right: 20px; cursor: pointer; z-index: 9999;">
-            <img src="https://static.vecteezy.com/system/resources/thumbnails/014/441/080/small_2x/chat-icon-design-in-blue-circle-png.png" alt="Chat" style="width: 50px; height: 50px;">
+{{ $slot }}
+
+@auth
+<div id="chat-widget">
+
+    <div id="chat-toggle"
+         style="position: fixed; bottom: 20px; right: 20px; cursor: pointer; z-index: 9999;">
+        <img src="https://static.vecteezy.com/system/resources/thumbnails/014/441/080/small_2x/chat-icon-design-in-blue-circle-png.png"
+             style="width: 50px; height: 50px;">
+    </div>
+
+    <div id="chat-panel"
+         style="display:none; position:fixed; bottom:80px; right:20px; width:320px; height:400px;
+                background:white; border:1px solid #ccc; border-radius:10px;
+                overflow:hidden; box-shadow:0 0 10px rgba(0,0,0,0.2); z-index:9999;">
+
+        <div id="chat-contacts"
+             style="height:100px; overflow-y:auto; border-bottom:1px solid #ddd; padding:5px;">
         </div>
 
-        <div id="chat-panel" style="display: none; position: fixed; bottom: 80px; right: 20px; width: 320px; height: 400px; background: white; border: 1px solid #ccc; border-radius: 10px; overflow: hidden; box-shadow: 0 0 10px rgba(0,0,0,0.2); z-index: 9999;">
-            <div id="chat-contacts" style="height: 100px; overflow-y: auto; border-bottom: 1px solid #ddd; padding: 5px;">
-            </div>
+        <div id="chat-messages"
+             style="height:240px; overflow-y:auto; padding:10px; background:#f9f9f9; display:flex; flex-direction:column;">
+        </div>
 
-            <div id="chat-messages" style="height: 240px; overflow-y: auto; padding: 10px; background: #f9f9f9;">
-            </div>
-
-            <div style="padding: 10px; border-top: 1px solid #ddd; display: flex;">
-                <input id="chat-input" type="text" placeholder="Type a message..." style="flex-grow: 1; padding: 5px;">
-                <button id="chat-send" style="padding: 5px 10px;">Send</button>
-            </div>
+        <div style="padding:10px; border-top:1px solid #ddd; display:flex;">
+            <input id="chat-input" type="text" placeholder="Type a message..."
+                   style="flex-grow:1; padding:5px;">
+            <button id="chat-send" style="padding:5px 10px;">Send</button>
         </div>
     </div>
-    @endauth
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</div>
+@endauth
 
-    <script>
-    function setCookie(name, value, days) {
-      let expires = "";
-      if (days) {
-        const d = new Date();
-        d.setTime(d.getTime() + days*24*60*60*1000);
-        expires = "; expires=" + d.toUTCString();
-      }
-      document.cookie = name + "=" + (value || "")  + expires + "; path=/";
-    }
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    function getCookie(name) {
-      const nameEQ = name + "=";
-      const ca = document.cookie.split(';');
-      for(let i=0; i < ca.length; i++) {
-        let c = ca[i];
-        while (c.charAt(0) === ' ') c = c.substring(1);
-        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length);
-      }
-      return null;
-    }
-
-    window.addEventListener('DOMContentLoaded', initLanguage);
+<script>
+document.addEventListener('DOMContentLoaded', function () {
 
     const chatToggle = document.getElementById('chat-toggle');
     const chatPanel = document.getElementById('chat-panel');
@@ -73,63 +65,92 @@
     const chatInput = document.getElementById('chat-input');
     const chatSend = document.getElementById('chat-send');
 
-    let activeChatUserId = null;
+    if (!chatToggle || !chatPanel) return;
 
-    // toggle chat panel
+    let activeChatUserId = null;
+    const currentUserId = {{ auth()->check() ? auth()->id() : 'null' }};
+
+    // TOGGLE
     chatToggle.addEventListener('click', () => {
-        if (chatPanel.style.display === 'none' || chatPanel.style.display === '') {
-            chatPanel.style.display = 'block';
-            loadContacts();
-        } else {
+        const open = chatPanel.style.display === 'block';
+
+        if (open) {
             chatPanel.style.display = 'none';
             chatMessages.innerHTML = '';
             chatContacts.innerHTML = '';
             activeChatUserId = null;
+        } else {
+            chatPanel.style.display = 'block';
+            loadContacts();
         }
     });
 
-    // load users chat contacts
+    // CONTACTS
     function loadContacts() {
         fetch('/chat-contacts')
-            .then(response => response.json())
+            .then(r => r.json())
             .then(contacts => {
                 chatContacts.innerHTML = '';
+
                 contacts.forEach(contact => {
-                    const contactDiv = document.createElement('div');
-                    contactDiv.textContent = contact.name;
-                    contactDiv.style.cursor = 'pointer';
-                    contactDiv.style.padding = '5px';
-                    contactDiv.style.borderBottom = '1px solid #eee';
+                    const div = document.createElement('div');
+                    div.textContent = contact.name;
+                    div.style.cursor = 'pointer';
+                    div.style.padding = '5px';
+                    div.style.borderBottom = '1px solid #eee';
 
-                    contactDiv.addEventListener('click', () => {
-                        startChat(contact.id, contact.name);
-                    });
+                    div.onclick = () => startChat(contact.id, contact.name);
 
-                    chatContacts.appendChild(contactDiv);
+                    chatContacts.appendChild(div);
                 });
             });
     }
 
-    // load messages with user
+    // MESSAGES (🔥 FIXED UI HERE)
     function loadMessages(userId) {
         fetch('/messages/' + userId)
-            .then(response => response.json())
+            .then(r => r.json())
             .then(messages => {
+
                 chatMessages.innerHTML = '';
+
                 messages.forEach(msg => {
-                    const msgDiv = document.createElement('div');
-                    const sender = msg.sender_id === {{ auth()->id() }} ? 'You' : 'Them';
-                    msgDiv.textContent = `[${msg.created_at}] ${sender}: ${msg.message}`;
-                    chatMessages.appendChild(msgDiv);
+
+                    const isMe = msg.sender_id === currentUserId;
+
+                    const time = new Date(msg.created_at).toLocaleTimeString([], {
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+
+                    const div = document.createElement('div');
+
+                    div.style.maxWidth = "80%";
+                    div.style.marginBottom = "8px";
+                    div.style.padding = "8px 10px";
+                    div.style.borderRadius = "10px";
+                    div.style.alignSelf = isMe ? "flex-end" : "flex-start";
+                    div.style.background = isMe ? "#d1e7ff" : "#eee";
+
+                    div.innerHTML = `
+                        <div style="font-size:11px; color:#666; margin-bottom:3px;">
+                            <strong>${isMe ? 'You' : 'Them'}</strong> • ${time}
+                        </div>
+                        <div>${msg.message}</div>
+                    `;
+
+                    chatMessages.appendChild(div);
                 });
+
                 chatMessages.scrollTop = chatMessages.scrollHeight;
             });
     }
 
-    // send message
+    // SEND
     chatSend.addEventListener('click', () => {
+
         if (!activeChatUserId) {
-            alert('Please select a contact to chat with.');
+            alert('Select a user first');
             return;
         }
 
@@ -140,26 +161,30 @@
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
             },
             body: JSON.stringify({
                 receiver_id: activeChatUserId,
                 message: message
             })
-        }).then(() => {
+        })
+        .then(() => {
             chatInput.value = '';
             loadMessages(activeChatUserId);
-            loadContacts();
         });
     });
 
-    // triggered from outside to start chat with someone
-    function startChat(userId, userName) {
+    // GLOBAL CHAT OPEN
+    window.startChat = function (userId, userName) {
         chatPanel.style.display = 'block';
         activeChatUserId = userId;
+
         loadContacts();
         loadMessages(userId);
-    }
-    </script>
+    };
+
+});
+</script>
+
 </body>
 </html>

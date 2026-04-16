@@ -1,57 +1,94 @@
 <x-layout title="Profile">
-    <div class="container mt-5">
-        <h2  >User Profile</h2>
+<div class="container mt-5">
 
-        <div class="row mt-4">
-            <div class="col-md-4 text-center">
-                @if($user->profile_image)
-                    <img src="{{ $user->profile_image }}" alt="Profile Image" class="img-fluid rounded-circle mb-3" style="max-width: 200px; height: 200px; object-fit: cover;">
-                @else
-                    <img src="https://i.pinimg.com/474x/47/ba/71/47ba71f457434319819ac4a7cbd9988e.jpg" alt="No Profile Image" class="img-fluid rounded-circle mb-3">
+    <h2>User Profile</h2>
+
+    <div class="row mt-4">
+
+        {{-- PROFILE IMAGE --}}
+        <div class="col-md-4 text-center">
+            @if($user->profile_image)
+                <img src="{{ $user->profile_image }}"
+                     class="img-fluid rounded-circle mb-3"
+                     style="max-width:200px; height:200px; object-fit:cover;">
+            @else
+                <img src="https://i.pinimg.com/474x/47/ba/71/47ba71f457434319819ac4a7cbd9988e.jpg"
+                     class="img-fluid rounded-circle mb-3"
+                     style="max-width:200px;">
+            @endif
+        </div>
+
+        {{-- INFO --}}
+        <div class="col-md-8">
+
+            <h3>{{ $user->name }}</h3>
+
+            <p><strong>Email:</strong> {{ $user->email }}</p>
+            <p><strong>Location:</strong> {{ $user->location ?? 'Not set' }}</p>
+            <p><strong>About Me:</strong><br>
+                {{ $user->profile_description ?? 'No description provided.' }}
+            </p>
+
+            <p><strong>Average Rating:</strong>
+                {{ number_format($user->reviewsReceived()->avg('rating') ?? 0, 2) }}
+            </p>
+
+            <p><strong>Items Listed:</strong>
+                {{ $user->items->count() }}
+            </p>
+
+            {{-- CHAT BUTTON --}}
+            @auth
+                @if(auth()->id() !== $user->id)
+                    <button class="btn btn-outline-primary"
+                            onclick="startChat({{ $user->id }}, '{{ $user->name }}')">
+                        Chat with {{ $user->name }}
+                    </button>
                 @endif
-            </div>
+            @endauth
 
-            <div class="col-md-8">
-                <h3>{{ $user->name }}</h3>
-                <p><strong  >Email:</strong> {{ $user->email }}</p>
-                <p><strong  >Location:</strong> {{ $user->location ?? 'Not set' }}</p>
-                <p><strong  >About Me:</strong><br> {{ $user->profile_description ?? 'No description provided.' }}</p>
-                <p><strong  >Average Rating:</strong> {{ number_format($user->reviewsReceived()->avg('rating'), 2) }}</p>
-                <p><strong  >Items Listed:</strong> {{ $user->items->count() }}</p>
+            {{-- ADMIN DELETE --}}
+            @auth
+                @if(auth()->user()->isAdmin())
+                    <form action="{{ route('admin.users.delete', $user) }}"
+                          method="POST"
+                          class="mt-2"
+                          onsubmit="return confirm('Are you sure you want to delete {{ $user->name }}?');">
 
-                @if(auth()->check() && auth()->id() !== $user->id)
-                    <div class="d-flex gap-2 mt-3">
-                        <button class="btn btn-outline-primary" onclick="startChat({{ $user->id }}, '{{ $user->name }}')">
-                            Chat with {{ $user->name }}
+                        @csrf
+                        @method('DELETE')
+
+                        <button class="btn btn-outline-danger">
+                            Delete User
                         </button>
-
-                        @if(auth()->user()->isAdmin())
-                            <form action="{{ route('admin.users.delete', $user) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete {{ $user->name }}?');">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn btn-outline-danger"  >Delete User</button>
-                            </form>
-                        @endif
-                    </div>
+                    </form>
                 @endif
-            </div>
+            @endauth
 
-            <h4  >Received Reviews:</h4>
-            @foreach ($reviews as $review)
-                <div>
-                    <strong>{{ $review->reviewer->name }}</strong> <span  >rated</span> {{ $review->rating }}/5
-                    <p>{{ $review->comment }}</p>
-                </div>
-            @endforeach
-
-            <h3>{{ $user->name }}’s Listings:</h3>
-            <div class="row">
-                @foreach ($items as $item)
-                    <div class="col-md-3">
-                        <x-item-card :item="$item" :isSold="$item->status === 'sold'" />
-                    </div>
-                @endforeach
-            </div>
         </div>
     </div>
+
+    {{-- REVIEWS --}}
+    <h4 class="mt-4">Received Reviews:</h4>
+
+    @foreach ($reviews as $review)
+        <div class="border rounded p-2 mb-2">
+            <strong>{{ $review->reviewer->name }}</strong>
+            <span>rated {{ $review->rating }}/5</span>
+            <p class="mb-0">{{ $review->comment }}</p>
+        </div>
+    @endforeach
+
+    {{-- LISTINGS --}}
+    <h3 class="mt-4">{{ $user->name }}’s Listings:</h3>
+
+    <div class="row">
+        @foreach ($items as $item)
+            <div class="col-md-3">
+                <x-item-card :item="$item" :isSold="$item->status === 'sold'" />
+            </div>
+        @endforeach
+    </div>
+
+</div>
 </x-layout>
